@@ -26,6 +26,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.google.guava:guava:31.0.1-jre")
     implementation("dev.kord:kord-core:0.8.0-M16")
+    implementation("org.slf4j:slf4j-simple:2.0.3")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
