@@ -9,6 +9,7 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.6.21"
+    id("io.ktor.plugin") version "2.1.2"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -34,6 +35,14 @@ dependencies {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+}
+
+ktor {
+    docker {
+        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_11)
+        localImageName.set("waambokt-dev")
+        imageTag.set("1")
+    }
 }
 
 application {
