@@ -6,3 +6,4 @@ build
 
 # Ignore configuration file containing secrets
 app/.env.properties
+/app/src/main/resources/.env.properties

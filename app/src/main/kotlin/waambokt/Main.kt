@@ -37,8 +37,7 @@ suspend fun main() {
 }
 
 private fun getToken(): String {
-    val path = System.getProperty("user.dir")
-    val envFile = File("$path/.env.properties")
+    val envFile = File("src/main/resources/.env.properties")
     val prop = Properties()
     FileInputStream(envFile).use { prop.load(it) }
     return prop.getProperty("token")
