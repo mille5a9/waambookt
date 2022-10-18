@@ -5,5 +5,7 @@
 build
 
 # Ignore configuration file containing secrets
-app/.env.properties
 /app/src/main/resources/.env.properties
+
+# Ignore the bin folder created by some IDEs
+app/bin
