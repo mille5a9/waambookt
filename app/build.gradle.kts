@@ -37,15 +37,13 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
     kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }
 
-ktor {
-    docker {
-        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_11)
-        localImageName.set("waambokt-dev")
-        imageTag.set("1")
-    }
-}
-
 application {
     // Define the main class for the application.
     mainClass.set("waambokt.MainKt")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
 }

@@ -23,7 +23,7 @@ fun main() = runBlocking {
 
 suspend fun run() {
 
-    val kord = Kord(getToken())
+    val kord = Kord(System.getenv("TOKEN"))
     val pingPong = ReactionEmoji.Unicode("\uD83C\uDFD3")
 
     kord.on<MessageCreateEvent> {
