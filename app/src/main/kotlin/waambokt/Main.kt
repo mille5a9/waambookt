@@ -3,57 +3,64 @@
  */
 package waambokt
 
-import dev.kord.core.Kord
-import dev.kord.core.entity.ReactionEmoji
-import dev.kord.core.event.message.MessageCreateEvent
-import dev.kord.core.on
-import dev.kord.gateway.Intent
-import dev.kord.gateway.PrivilegedIntent
-import kotlinx.coroutines.delay
+import discord4j.common.JacksonResources
+import discord4j.core.DiscordClient
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent
+import discord4j.discordjson.json.ApplicationCommandRequest
+import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.reactor.mono
 import kotlinx.coroutines.runBlocking
-import java.io.File
-import java.io.FileInputStream
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.util.*
+import mu.KotlinLogging
+import waambokt.commands.ping.Ping
+import waambokt.commands.sum.Sum
+import waambokt.config.Registry
 
-fun main() = runBlocking {
-    run()
-}
+fun main(): Unit = runBlocking {
+    val logger = KotlinLogging.logger {}
 
-suspend fun run() {
+    logger.info("discord client login...")
+    val client = DiscordClient.create(System.getenv("TOKEN"))
+    client.login().block()
 
-    val kord = Kord(System.getenv("TOKEN"))
-    val pingPong = ReactionEmoji.Unicode("\uD83C\uDFD3")
-
-    kord.on<MessageCreateEvent> {
-        if (message.content != "!ping") return@on
-
-        val response = message.channel.createMessage("Pong!")
-        response.addReaction(pingPong)
-
-        delay(5000)
-        message.delete()
-        response.delete()
+    logger.info("init commands...")
+    val d4jMapper = JacksonResources.create()
+    val commands: List<ApplicationCommandRequest> = Registry.filenames.map {
+        val json = javaClass.classLoader.getResource("commands/$it")?.readText()
+        d4jMapper.objectMapper.readValue(json, ApplicationCommandRequest::class.java)
     }
 
-    kord.login {
-        @OptIn(PrivilegedIntent::class)
-        intents += Intent.MessageContent
+    // There are no global commands, because discord takes a while to register them
+    // and being able to DM the bot is not worth the hassle during development
+    client.applicationService.bulkOverwriteGuildApplicationCommand(
+        client.applicationId.block() ?: 0,
+        System.getenv("TESTGUILD").toLong(), // waambokt test server id
+        commands
+    ).subscribe()
+
+    // test bots are not part of the prod discord server
+    if (System.getenv("PROD").toBoolean()) {
+        client.applicationService.bulkOverwriteGuildApplicationCommand(
+            client.applicationId.block() ?: 0,
+            System.getenv("PRODGUILD").toLong(), // waambot prod server id
+            commands
+        ).subscribe()
     }
-}
 
-private fun getToken(): String {
-    var prop = Properties()
-    // set specific absolute path if in root (docker container)
-    if (System.getProperty("user.dir") == "/")
-        return loadProp(File("/app/.env.properties"))
-    else
-        return loadProp(File("src/main/resources/env.properties"))
-}
+    logger.info("init ChatInputInteractionEvent listener...")
+    client.withGateway {
+        mono {
+            it.on(ChatInputInteractionEvent::class.java)
+                .asFlow()
+                .collect {
+                    logger.info("received ChatInputInteractionEvent")
+                    it.deferReply()
 
-private fun loadProp(env: File): String {
-    val prop = Properties()
-    FileInputStream(env).use { prop.load(it) }
-    return prop.getProperty("token")
+                    logger.debug("when ${it.commandName}")
+                    when (it.commandName) {
+                        "ping" -> Ping.invoke(it)
+                        "sum" -> Sum.invoke(it)
+                    }
+                }
+        }
+    }.block()
 }

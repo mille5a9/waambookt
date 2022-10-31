@@ -10,6 +10,7 @@ plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.6.21"
     id("io.ktor.plugin") version "2.1.2"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -26,15 +27,24 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.google.guava:guava:31.0.1-jre")
-    implementation("dev.kord:kord-core:0.8.0-M16")
+    implementation("com.discord4j:discord4j-core:3.2.3")
     implementation("org.slf4j:slf4j-simple:2.0.3")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+    implementation("io.mockk:mockk-dsl-jvm:1.13.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
+    implementation("org.reflections:reflections:0.10.2")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("io.mockk:mockk:1.13.2")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    kotlinOptions.jvmTarget = "11"
 }
 
 application {
