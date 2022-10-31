@@ -30,12 +30,9 @@ dependencies {
     implementation("com.discord4j:discord4j-core:3.2.3")
     implementation("org.slf4j:slf4j-simple:2.0.3")
     implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
-    implementation("io.mockk:mockk-dsl-jvm:1.13.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
-    implementation("org.reflections:reflections:0.10.2")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
