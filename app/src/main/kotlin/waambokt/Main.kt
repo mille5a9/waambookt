@@ -3,64 +3,68 @@
  */
 package waambokt
 
-import discord4j.common.JacksonResources
-import discord4j.core.DiscordClient
-import discord4j.core.event.domain.interaction.ChatInputInteractionEvent
-import discord4j.discordjson.json.ApplicationCommandRequest
-import kotlinx.coroutines.reactive.asFlow
-import kotlinx.coroutines.reactor.mono
+import dev.kord.core.Kord
+import dev.kord.core.event.interaction.GuildChatInputCommandInteractionCreateEvent
+import dev.kord.core.on
+import dev.kord.gateway.Intent
+import dev.kord.gateway.PrivilegedIntent
+import dev.kord.rest.json.request.ApplicationCommandCreateRequest
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import mu.KotlinLogging
 import waambokt.commands.ping.Ping
 import waambokt.commands.sum.Sum
+import waambokt.config.Env
 import waambokt.config.Registry
+import waambokt.extensions.KordExtension.deleteAllApplicationCommands
 
 fun main(): Unit = runBlocking {
     val logger = KotlinLogging.logger {}
 
     logger.info("discord client login...")
-    val client = DiscordClient.create(System.getenv("TOKEN"))
-    client.login().block()
+    val kord = Kord(Env.token)
+
+    // remove chat input commands if ENV bool is set
+    if (Env.clearCommands) {
+        kord.deleteAllApplicationCommands()
+    }
 
     logger.info("init commands...")
-    val d4jMapper = JacksonResources.create()
-    val commands: List<ApplicationCommandRequest> = Registry.filenames.map {
-        val json = javaClass.classLoader.getResource("commands/$it")?.readText()
-        d4jMapper.objectMapper.readValue(json, ApplicationCommandRequest::class.java)
+    val commands: List<ApplicationCommandCreateRequest> = Registry.filenames.map {
+        val json = javaClass.classLoader.getResource("commands/$it")?.readText() ?: ""
+        return@map Json.decodeFromString<ApplicationCommandCreateRequest>(json)
     }
 
     // There are no global commands, because discord takes a while to register them
     // and being able to DM the bot is not worth the hassle during development
-    client.applicationService.bulkOverwriteGuildApplicationCommand(
-        client.applicationId.block() ?: 0,
-        System.getenv("TESTGUILD").toLong(), // waambokt test server id
+    kord.rest.interaction.createGuildApplicationCommands(
+        kord.selfId,
+        Env.testGuild,
         commands
-    ).subscribe()
+    )
 
-    // test bots are not part of the prod discord server
-    if (System.getenv("PROD").toBoolean()) {
-        client.applicationService.bulkOverwriteGuildApplicationCommand(
-            client.applicationId.block() ?: 0,
-            System.getenv("PRODGUILD").toLong(), // waambot prod server id
+    if (Env.isProd) {
+        kord.rest.interaction.createGuildApplicationCommands(
+            kord.selfId,
+            Env.prodGuild,
             commands
-        ).subscribe()
+        )
     }
 
-    logger.info("init ChatInputInteractionEvent listener...")
-    client.withGateway {
-        mono {
-            it.on(ChatInputInteractionEvent::class.java)
-                .asFlow()
-                .collect {
-                    logger.info("received ChatInputInteractionEvent")
-                    it.deferReply()
-
-                    logger.debug("when ${it.commandName}")
-                    when (it.commandName) {
-                        "ping" -> Ping.invoke(it)
-                        "sum" -> Sum.invoke(it)
-                    }
-                }
+    kord.on<GuildChatInputCommandInteractionCreateEvent> {
+        logger.info {
+            "GuildChatInputCommandInteractionCreateEvent ${this.interaction.invokedCommandName}"
         }
-    }.block()
+        when (this.interaction.invokedCommandName) {
+            "ping" -> Ping.invoke(this)
+            "sum" -> Sum.invoke(this)
+        }
+    }
+
+    kord.login {
+        @OptIn(PrivilegedIntent::class)
+        intents += Intent.MessageContent
+        intents += Intent.GuildIntegrations
+    }
 }

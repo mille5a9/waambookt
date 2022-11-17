@@ -1,6 +1,7 @@
 {
   "name": "sum",
   "description": "Calculates the sum of two integers",
+  "type": 1,
   "options": [
     {
       "name": "first",

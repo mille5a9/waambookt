@@ -1,30 +1,23 @@
 package waambokt.commands.sum
 
-import discord4j.core.event.domain.interaction.ChatInputInteractionEvent
-import discord4j.core.`object`.command.ApplicationCommandInteractionOption
-import discord4j.core.`object`.command.ApplicationCommandInteractionOptionValue
-import kotlinx.coroutines.reactor.awaitSingleOrNull
+import dev.kord.core.behavior.interaction.response.respond
+import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import mu.KotlinLogging
 import waambokt.commands.ICommand
 
-object Sum : ICommand<ChatInputInteractionEvent, Long> {
+object Sum : ICommand<ChatInputCommandInteractionCreateEvent, Long> {
     private val logger = KotlinLogging.logger {}
 
     override suspend fun invoke(
-        event: ChatInputInteractionEvent
-    ): Void? {
+        event: ChatInputCommandInteractionCreateEvent
+    ) {
         logger.info("invoked sum")
-        val first: Long = event.getOption("first")
-            .flatMap(ApplicationCommandInteractionOption::getValue)
-            .map(ApplicationCommandInteractionOptionValue::asLong)
-            .get()
-        val second: Long = event.getOption("second")
-            .flatMap(ApplicationCommandInteractionOption::getValue)
-            .map(ApplicationCommandInteractionOptionValue::asLong)
-            .get()
-        return event.reply()
-            .withContent(listOf(first, second).execute())
-            .awaitSingleOrNull()
+        val response = event.interaction.deferPublicResponse()
+        val first: Long = event.interaction.command.integers["first"] ?: 0
+        val second: Long = event.interaction.command.integers["second"] ?: 0
+        response.respond {
+            this.content = listOf(first, second).execute()
+        }
     }
 
     override suspend fun List<Long>.execute(): String {
