@@ -8,15 +8,13 @@ import dev.kord.core.event.interaction.GuildChatInputCommandInteractionCreateEve
 import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import dev.kord.rest.json.request.ApplicationCommandCreateRequest
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import mu.KotlinLogging
 import waambokt.commands.ping.Ping
 import waambokt.commands.sum.Sum
 import waambokt.config.Env
 import waambokt.config.Registry
+import waambokt.extensions.KordExtension.createAllApplicationCommands
 import waambokt.extensions.KordExtension.deleteAllApplicationCommands
 
 fun main(): Unit = runBlocking {
@@ -30,27 +28,11 @@ fun main(): Unit = runBlocking {
         kord.deleteAllApplicationCommands()
     }
 
-    logger.info("init commands...")
-    val commands: List<ApplicationCommandCreateRequest> = Registry.filenames.map {
-        val json = javaClass.classLoader.getResource("commands/$it")?.readText() ?: ""
-        return@map Json.decodeFromString<ApplicationCommandCreateRequest>(json)
-    }
+    val commands = Registry.loadCommands("commands/")
 
     // There are no global commands, because discord takes a while to register them
     // and being able to DM the bot is not worth the hassle during development
-    kord.rest.interaction.createGuildApplicationCommands(
-        kord.selfId,
-        Env.testGuild,
-        commands
-    )
-
-    if (Env.isProd) {
-        kord.rest.interaction.createGuildApplicationCommands(
-            kord.selfId,
-            Env.prodGuild,
-            commands
-        )
-    }
+    kord.createAllApplicationCommands(commands)
 
     kord.on<GuildChatInputCommandInteractionCreateEvent> {
         logger.info {

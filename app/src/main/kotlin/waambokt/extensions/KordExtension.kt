@@ -1,6 +1,7 @@
 package waambokt.extensions
 
 import dev.kord.core.Kord
+import dev.kord.rest.json.request.ApplicationCommandCreateRequest
 import waambokt.config.Env
 
 object KordExtension {
@@ -28,6 +29,24 @@ object KordExtension {
                     it.id
                 )
             }
+        }
+    }
+
+    suspend fun Kord.createAllApplicationCommands(
+        commands: List<ApplicationCommandCreateRequest>
+    ) {
+        this.rest.interaction.createGuildApplicationCommands(
+            this.selfId,
+            Env.testGuild,
+            commands
+        )
+
+        if (Env.isProd) {
+            this.rest.interaction.createGuildApplicationCommands(
+                this.selfId,
+                Env.prodGuild,
+                commands
+            )
         }
     }
 }
