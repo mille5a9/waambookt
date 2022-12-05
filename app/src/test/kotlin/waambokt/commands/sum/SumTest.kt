@@ -1,9 +1,9 @@
 package waambokt.commands.sum
 
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
-import waambokt.commands.sum.Sum.execute
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import waambokt.commands.Sum
 
 class SumTest {
 
@@ -14,7 +14,6 @@ class SumTest {
 
     @Test
     fun `execute Sum happy path`() = runBlocking {
-        val response = listOf(first, second).execute()
-        assertEquals(expected, response)
+        Assertions.assertEquals(expected, Sum(first, second))
     }
 }

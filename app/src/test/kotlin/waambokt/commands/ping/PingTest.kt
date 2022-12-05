@@ -1,18 +1,15 @@
 package waambokt.commands.ping
 
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
-import org.junit.Test
-import waambokt.commands.ping.Ping.execute
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import waambokt.commands.Ping
 
 class PingTest {
-
     private val expected = "Pong!"
 
     @Test
     fun `execute ping happy path`() = runBlocking {
-        val response = listOf<Void>().execute()
-
-        Assert.assertEquals(expected, response)
+        Assertions.assertEquals(expected, Ping())
     }
 }

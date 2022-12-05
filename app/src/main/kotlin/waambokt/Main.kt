@@ -10,8 +10,8 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
-import waambokt.commands.ping.Ping
-import waambokt.commands.sum.Sum
+import waambokt.commands.Ping
+import waambokt.commands.Sum
 import waambokt.config.Env
 import waambokt.config.Registry
 import waambokt.extensions.KordExtension.createAllApplicationCommands
