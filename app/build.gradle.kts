@@ -8,7 +8,7 @@
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.6.21"
+    id("org.jetbrains.kotlin.jvm") version "1.7.21"
     id("io.ktor.plugin") version "2.1.2"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 
@@ -25,18 +25,25 @@ repositories {
 dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("ch.qos.logback:logback-classic:1.2.9")
     implementation("com.google.guava:guava:31.0.1-jre")
-    implementation("com.discord4j:discord4j-core:3.2.3")
-    implementation("org.slf4j:slf4j-simple:2.0.3")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("dev.kord:kord-core:0.8.0-M17")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.litote.kmongo:kmongo-coroutine:4.8.0")
+    implementation("org.slf4j:slf4j-simple:2.0.3")
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
     testImplementation("io.mockk:mockk:1.13.2")
+}
+
+tasks {
+    // Use the native JUnit support of Gradle.
+    "test"(Test::class) {
+        useJUnitPlatform()
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
