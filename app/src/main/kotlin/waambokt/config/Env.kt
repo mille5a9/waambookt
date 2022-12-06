@@ -8,4 +8,5 @@ object Env {
     val clearCommands = System.getenv("CLEARCOMMANDS").toBoolean()
     val isProd = System.getenv("PROD").toBoolean()
     val token: String = System.getenv("TOKEN")
+    val mongo: String = System.getenv("MONGO_CONNECTION_STRING")
 }

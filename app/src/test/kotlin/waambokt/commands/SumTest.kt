@@ -1,4 +1,4 @@
-package waambokt.commands.sum
+package waambokt.commands
 
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions

@@ -1,4 +1,4 @@
-package waambokt.commands.ping
+package waambokt.commands
 
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
