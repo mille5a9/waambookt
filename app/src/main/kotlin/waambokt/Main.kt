@@ -11,7 +11,9 @@ import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import waambokt.commands.Ping
+import waambokt.commands.Reprimand
 import waambokt.commands.Sum
+import waambokt.config.Database
 import waambokt.config.Env
 import waambokt.config.Registry
 import waambokt.extensions.KordExtension.createAllApplicationCommands
@@ -34,13 +36,17 @@ fun main(): Unit = runBlocking {
     // and being able to DM the bot is not worth the hassle during development
     kord.createAllApplicationCommands(commands)
 
+    // init database
+    val db = Database.getDb()
+
     kord.on<GuildChatInputCommandInteractionCreateEvent> {
         logger.info {
             "GuildChatInputCommandInteractionCreateEvent ${this.interaction.invokedCommandName}"
         }
         when (this.interaction.invokedCommandName) {
-            "ping" -> Ping.invoke(this)
-            "sum" -> Sum.invoke(this)
+            "ping" -> Ping.build(this).respond()
+            "sum" -> Sum.build(this).respond()
+            "reprimand" -> Reprimand.build(db, this).respond()
         }
     }
 
