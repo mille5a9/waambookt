@@ -30,9 +30,11 @@ class Reprimand private constructor(
     override suspend fun execute(): String {
         logger.info { "offender is ${offender.username}" }
         logger.info { "reason is $reason" }
-        val reprimandLogs = mongo.getCollection<ReprimandLog>()
+        val reprimandLogs = mongo.getCollection<ReprimandLog>("reprimandLog")
 
-        val existingLog = reprimandLogs.findOne(ReprimandLog::userId eq offender.id.value.toString())
+        val existingLog = reprimandLogs.findOne(
+            (ReprimandLog::userId eq offender.id.value.toString())
+        )
 
         // brand new, never-before-reprimanded user
         if (existingLog == null) reprimandLogs.insertOne(
