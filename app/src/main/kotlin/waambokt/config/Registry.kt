@@ -10,7 +10,8 @@ object Registry {
 
     private val filenames = listOf(
         "ping.json",
-        "sum.json"
+        "sum.json",
+        "reprimand.json"
     )
 
     fun loadCommands(

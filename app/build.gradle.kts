@@ -23,14 +23,16 @@ repositories {
 }
 
 dependencies {
-    // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("ch.qos.logback:logback-classic:1.2.9")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     implementation("com.google.guava:guava:31.0.1-jre")
     implementation("dev.kord:kord-core:0.8.0-M17")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.litote.kmongo:kmongo-coroutine:4.8.0")
+    implementation("org.litote.kmongo:kmongo-id:4.8.0")
     implementation("org.slf4j:slf4j-simple:2.0.3")
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")

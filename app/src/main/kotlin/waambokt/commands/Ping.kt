@@ -5,7 +5,7 @@ import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import mu.KotlinLogging
 
 class Ping private constructor(
-    private val event: ChatInputCommandInteractionCreateEvent? = null
+    private val event: ChatInputCommandInteractionCreateEvent
 ) : Command() {
 
     // init contains command argument assignment logic
@@ -17,7 +17,7 @@ class Ping private constructor(
     // builds the response
     override suspend fun respond() {
         logger.info("respond ping")
-        val response = event!!.interaction.deferEphemeralResponse()
+        val response = event.interaction.deferEphemeralResponse()
         response.respond {
             this.content = execute()
         }
@@ -31,16 +31,13 @@ class Ping private constructor(
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        // actual behavior with gateway
-        suspend operator fun invoke(event: ChatInputCommandInteractionCreateEvent) {
-            logger.info("invoked ping")
-            Ping(event).respond()
-        }
-
-        // test behavior to focus on execute function
-        suspend operator fun invoke(): String {
-            logger.info("invoked ping test")
-            return Ping().execute()
+        fun build(
+            event: ChatInputCommandInteractionCreateEvent
+        ): Ping {
+            logger.info("building ping")
+            return Ping(
+                event
+            )
         }
     }
 }

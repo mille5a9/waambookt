@@ -10,3 +10,4 @@ build
 # Ignore the bin folder created by some IDEs
 app/bin
 .env
+/.idea/
