@@ -24,49 +24,34 @@ class ReprimandTest {
     private val reason = "this is a test"
     private val expected = "test has been reprimanded: $reason"
 
-    @RelaxedMockK
-    private lateinit var user: User
+    @RelaxedMockK private lateinit var user: User
 
-    @RelaxedMockK
-    private lateinit var event: ChatInputCommandInteractionCreateEvent
+    @RelaxedMockK private lateinit var event: ChatInputCommandInteractionCreateEvent
 
-    @RelaxedMockK
-    private lateinit var db: MongoDatabase
+    @RelaxedMockK private lateinit var db: MongoDatabase
 
-    private val collection: MongoCollection<ReprimandLog> =
-        mockkCoroutineCollection()
+    private val collection: MongoCollection<ReprimandLog> = mockkCoroutineCollection()
 
     @BeforeEach
     fun setup() {
         MockKAnnotations.init(this)
 
-        coEvery {
-            user.mention
-        } returns "test"
+        coEvery { user.mention } returns "test"
 
-        coEvery {
-            user.id
-        } returns Snowflake.min
+        coEvery { user.id } returns Snowflake.min
     }
 
     @Test
     fun `execute new reprimand happy path`() = runBlocking {
-        coEvery {
-            db.getCollection<ReprimandLog>(any(), any())
-        } returns collection
+        coEvery { db.getCollection<ReprimandLog>(any(), any()) } returns collection
 
-        coEvery {
-            collection.coroutine.getOne(any())
-        } returns null
+        coEvery { collection.coroutine.getOne(any()) } returns null
 
-        coEvery {
-            collection.coroutine.pushOne(any(), any())
-        } returns InsertOneResult.unacknowledged()
+        coEvery { collection.coroutine.pushOne(any(), any()) } returns
+            InsertOneResult.unacknowledged()
 
-        Assertions.assertEquals(expected, Reprimand.build(db, event, user, reason).execute())
+        Assertions.assertEquals(expected, Reprimand(db, event, user, reason).execute())
 
-        coVerify(exactly = 1) {
-            collection.coroutine.pushOne(any(), any())
-        }
+        coVerify(exactly = 1) { collection.coroutine.pushOne(any(), any()) }
     }
 }

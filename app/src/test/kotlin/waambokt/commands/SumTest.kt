@@ -15,8 +15,7 @@ class SumTest {
     private val sum: Long = 9
     private val expected = "$first + $second = $sum"
 
-    @RelaxedMockK
-    private lateinit var event: ChatInputCommandInteractionCreateEvent
+    @RelaxedMockK private lateinit var event: ChatInputCommandInteractionCreateEvent
 
     @BeforeEach
     fun setup() {
@@ -25,6 +24,6 @@ class SumTest {
 
     @Test
     fun `execute Sum happy path`() = runBlocking {
-        Assertions.assertEquals(expected, Sum.build(event, first, second).execute())
+        Assertions.assertEquals(expected, Sum(event, first, second).execute())
     }
 }

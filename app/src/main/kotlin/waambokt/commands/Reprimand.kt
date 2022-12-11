@@ -63,7 +63,7 @@ class Reprimand private constructor(
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        fun build(
+        suspend operator fun invoke(
             db: MongoDatabase,
             event: ChatInputCommandInteractionCreateEvent,
             offender: User? = null,
@@ -74,7 +74,7 @@ class Reprimand private constructor(
                 CoroutineDatabase(db),
                 event,
                 (offender ?: event.interaction.command.users["offender"])!!,
-                (reason ?: event.interaction.command.strings["reason"])!!
+                (reason ?: event.interaction.command.strings["reason"]) ?: ""
             )
         }
     }

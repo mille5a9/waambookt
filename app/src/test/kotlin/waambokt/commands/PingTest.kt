@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test
 class PingTest {
     private val expected = "Pong!"
 
-    @RelaxedMockK
-    private lateinit var event: ChatInputCommandInteractionCreateEvent
+    @RelaxedMockK private lateinit var event: ChatInputCommandInteractionCreateEvent
 
     @BeforeEach
     fun setup() {
@@ -21,6 +20,6 @@ class PingTest {
 
     @Test
     fun `execute ping happy path`() = runBlocking {
-        Assertions.assertEquals(expected, Ping.build(event).execute())
+        Assertions.assertEquals(expected, Ping(event).execute())
     }
 }
