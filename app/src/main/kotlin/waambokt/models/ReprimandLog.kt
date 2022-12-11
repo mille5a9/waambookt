@@ -1,4 +1,4 @@
-package waambokt.data
+package waambokt.models
 
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId

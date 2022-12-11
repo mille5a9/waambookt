@@ -1,16 +1,16 @@
 package waambokt.commands
 
-import com.fasterxml.jackson.core.JsonFactoryBuilder
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.mongodb.reactivestreams.client.MongoDatabase
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.entity.User
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import mu.KotlinLogging
 import org.litote.kmongo.coroutine.CoroutineDatabase
-import org.litote.kmongo.coroutine.insertOne
 import org.litote.kmongo.eq
-import waambokt.data.ReprimandLog
+import waambokt.models.ReprimandLog
+import waambokt.repos.MongoRepo.getOne
+import waambokt.repos.MongoRepo.overwriteOneById
+import waambokt.repos.MongoRepo.pushOne
 
 class Reprimand private constructor(
     private val mongo: CoroutineDatabase,
@@ -32,38 +32,38 @@ class Reprimand private constructor(
         logger.info { "reason is $reason" }
         val reprimandLogs = mongo.getCollection<ReprimandLog>("reprimandLog")
 
-        val existingLog = reprimandLogs.findOne(
-            (ReprimandLog::userId eq offender.id.value.toString())
+        val existingLog = reprimandLogs.getOne(
+            ReprimandLog::userId eq offender.id.value.toString()
         )
 
         // brand new, never-before-reprimanded user
-        if (existingLog == null) reprimandLogs.insertOne(
-            mapper.writeValueAsString(
-                ReprimandLog(
-                    offender.id.value.toString(),
-                    reasons = if (reason.isNotEmpty()) listOf(reason) else emptyList()
-                )
+        if (existingLog == null) reprimandLogs.pushOne(
+            ReprimandLog(
+                offender.id.value.toString(),
+                reasons = if (reason.isNotEmpty()) listOf(reason) else emptyList()
             )
         )
         // previously reprimanded user, add reason to list and increment count
-        else reprimandLogs.save(
+        else reprimandLogs.overwriteOneById(
+            existingLog._id,
             ReprimandLog(
                 existingLog.userId,
-                (existingLog.count + 1),
-                if (reason.isNotEmpty()) existingLog.reasons.plus(reason)
-                else existingLog.reasons,
-                existingLog._id
+                existingLog.count.plus(1),
+                existingLog.reasons.plusNotEmpty(reason)
             )
         )
 
         return "${offender.mention} has been reprimanded" + if (reason != "") ": $reason" else ""
     }
 
+    private fun List<String>.plusNotEmpty(item: String): List<String> {
+        return if (item.isNotEmpty()) this.plus(reason) else this
+    }
+
     companion object {
         private val logger = KotlinLogging.logger {}
-        private val mapper = ObjectMapper(JsonFactoryBuilder().build())
 
-        fun build(
+        suspend operator fun invoke(
             db: MongoDatabase,
             event: ChatInputCommandInteractionCreateEvent,
             offender: User? = null,
@@ -74,7 +74,7 @@ class Reprimand private constructor(
                 CoroutineDatabase(db),
                 event,
                 (offender ?: event.interaction.command.users["offender"])!!,
-                (reason ?: event.interaction.command.strings["reason"])!!
+                (reason ?: event.interaction.command.strings["reason"]) ?: ""
             )
         }
     }

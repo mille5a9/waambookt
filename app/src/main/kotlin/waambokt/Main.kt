@@ -44,9 +44,9 @@ fun main(): Unit = runBlocking {
             "GuildChatInputCommandInteractionCreateEvent ${this.interaction.invokedCommandName}"
         }
         when (this.interaction.invokedCommandName) {
-            "ping" -> Ping.build(this).respond()
-            "sum" -> Sum.build(this).respond()
-            "reprimand" -> Reprimand.build(db, this).respond()
+            "ping" -> Ping(this).respond()
+            "sum" -> Sum(this).respond()
+            "reprimand" -> Reprimand(db, this).respond()
         }
     }
 

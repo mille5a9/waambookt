@@ -4,7 +4,8 @@ import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import mu.KotlinLogging
 
-class Sum private constructor(
+class Sum
+private constructor(
     private val event: ChatInputCommandInteractionCreateEvent,
     private var first: Long,
     private var second: Long
@@ -13,9 +14,7 @@ class Sum private constructor(
     override suspend fun respond() {
         logger.info("respond sum")
         val response = event.interaction.deferPublicResponse()
-        response.respond {
-            this.content = execute()
-        }
+        response.respond { this.content = execute() }
     }
 
     override suspend fun execute(): String {
@@ -26,7 +25,7 @@ class Sum private constructor(
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        fun build(
+        suspend operator fun invoke(
             event: ChatInputCommandInteractionCreateEvent,
             first: Long? = null,
             second: Long? = null

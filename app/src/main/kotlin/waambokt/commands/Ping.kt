@@ -31,7 +31,7 @@ class Ping private constructor(
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        fun build(
+        suspend operator fun invoke(
             event: ChatInputCommandInteractionCreateEvent
         ): Ping {
             logger.info("building ping")
