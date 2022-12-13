@@ -23,6 +23,8 @@ import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import waambokt.constants.Nba
 import waambokt.models.NbaNet
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class Net
@@ -161,9 +163,12 @@ private constructor(
 
     private suspend fun fetchMatchups(): List<Triple<String, String, String>> {
         logger.info("fetching matchups")
+        val currentDayStr = Date().toInstant().atOffset(ZoneOffset.UTC).format(
+            DateTimeFormatter.ofPattern("yyyyMMdd")
+        )
         val response: HttpResponse =
             HttpClient()
-                .get("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard")
+                .get("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=$currentDayStr")
         val gamesList = JSONObject(response.body<String>()).getJSONArray("events")
         return List(gamesList.length()) {
             Triple(gamesList.getTeam(it, 0), gamesList.getTeam(it, 1), gamesList.getOdds(it))
