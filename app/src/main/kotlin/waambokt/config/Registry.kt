@@ -8,7 +8,7 @@ import mu.KotlinLogging
 object Registry {
     private val logger = KotlinLogging.logger {}
 
-    private val filenames = listOf("ping.json", "sum.json", "reprimand.json")
+    private val filenames = listOf("ping.json", "sum.json", "reprimand.json", "net.json")
 
     fun loadCommands(path: String): List<ApplicationCommandCreateRequest> {
         logger.info("loading commands")

@@ -10,6 +10,7 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
+import waambokt.commands.Net
 import waambokt.commands.Ping
 import waambokt.commands.Reprimand
 import waambokt.commands.Sum
@@ -47,6 +48,7 @@ fun main(): Unit = runBlocking {
             "ping" -> Ping(this).respond()
             "sum" -> Sum(this).respond()
             "reprimand" -> Reprimand(db, this).respond()
+            "net" -> Net(db, this).respond()
         }
     }
 
