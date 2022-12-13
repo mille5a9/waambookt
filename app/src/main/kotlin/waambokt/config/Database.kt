@@ -5,5 +5,5 @@ import org.litote.kmongo.reactivestreams.KMongo
 
 object Database {
     fun getDb(): MongoDatabase =
-        KMongo.createClient().getDatabase(if (Env.isProd) "prodkt" else "testkt")
+        KMongo.createClient(Env.mongo).getDatabase(if (Env.isProd) "prodkt" else "testkt")
 }

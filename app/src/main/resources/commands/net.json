@@ -1,0 +1,5 @@
+{
+  "name": "net",
+  "description": "Spits out some nba picks based on existing matchups and ceasars spreads",
+  "type": 1
+}
