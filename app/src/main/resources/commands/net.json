@@ -1,5 +1,19 @@
 {
   "name": "net",
-  "description": "Spits out some nba picks based on existing matchups and ceasars spreads",
-  "type": 1
+  "description": "Spits out some nba picks based on the current day's matchups and ceasars spreads",
+  "type": 1,
+  "options": [
+    {
+      "name": "net_out",
+      "description": "Include recent NET ratings for each team",
+      "type": 5,
+      "required": false
+    },
+    {
+      "name": "hide_no_contests",
+      "description": "Suppress output text for matchups that ought to be skipped",
+      "type": 5,
+      "required": false
+    }
+  ]
 }

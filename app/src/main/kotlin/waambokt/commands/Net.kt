@@ -30,7 +30,9 @@ import java.util.Date
 class Net
 private constructor(
     private val mongo: CoroutineDatabase,
-    private val event: ChatInputCommandInteractionCreateEvent
+    private val event: ChatInputCommandInteractionCreateEvent,
+    private val netOut: Boolean,
+    private val hideNoContests: Boolean
 ) : Command() {
     private val dayms = 86400000
 
@@ -52,33 +54,36 @@ private constructor(
                 val oddsInfo = temp.third.split(' ')
                 val homeSpread = oddsInfo.getOdds(temp.second)
                 val awaySpread = oddsInfo.getOdds(temp.first)
+                val homeNet = nets.findNet(temp.second)
+                val awayNet = nets.findNet(temp.first)
 
                 return@map when (
                     calculateBet(
-                        nets.findNet(temp.second),
-                        nets.findNet(temp.first),
-                        homeSpread,
-                        awaySpread
+                        homeNet,
+                        awayNet,
+                        homeSpread
                     )
                 ) {
                     HowToBetEnum.HOME_SPREAD -> "${Nba.abbr[temp.second]} $homeSpread"
                     HowToBetEnum.AWAY_SPREAD -> "${Nba.abbr[temp.first]} $awaySpread"
-                    HowToBetEnum.NO_CONTEST -> "Don't bet on ${temp.first} @ ${temp.second}"
-                }
+                    HowToBetEnum.NO_CONTEST ->
+                        if (hideNoContests) "" else "Don't bet on ${temp.first} @ ${temp.second}"
+                }.plus(
+                    if (netOut) " (${temp.second}: $homeNet, ${temp.first}: $awayNet)" else ""
+                )
             }
-        return output.joinToString("\n", "```", "```")
+        return output.filter { it.isNotEmpty() }.joinToString("\n", "```", "```")
     }
 
     private fun calculateBet(
         homeNet: Double,
         awayNet: Double,
-        homeSpread: Double,
-        awaySpread: Double
+        homeSpread: Double
     ): HowToBetEnum {
         val implSpreadH = awayNet - homeNet - 3
         if (implSpreadH < (homeSpread - Nba.min)) {
             return HowToBetEnum.HOME_SPREAD
-        } else if (implSpreadH > (awaySpread + Nba.min)) {
+        } else if (implSpreadH > (homeSpread + Nba.min)) {
             return HowToBetEnum.AWAY_SPREAD
         }
         return HowToBetEnum.NO_CONTEST
@@ -91,7 +96,7 @@ private constructor(
     }
 
     private fun List<NbaNet>.findNet(abbrName: String) =
-        this.find() { it.teamName == Nba.abbr[abbrName] }!!.netValue
+        this.find { it.teamName == Nba.abbr[abbrName] }!!.netValue
 
     private fun List<String>.getOdds(abbr: String) =
         if (this.first() == abbr) this.last().toDouble() else this.last().toDouble() * -1
@@ -194,10 +199,17 @@ private constructor(
 
         operator fun invoke(
             db: MongoDatabase,
-            event: ChatInputCommandInteractionCreateEvent
+            event: ChatInputCommandInteractionCreateEvent,
+            netOut: Boolean? = null,
+            hideNoContests: Boolean? = null
         ): Net {
             logger.info("building net")
-            return Net(CoroutineDatabase(db), event)
+            return Net(
+                CoroutineDatabase(db),
+                event,
+                netOut ?: event.interaction.command.booleans["net_out"] ?: false,
+                hideNoContests ?: event.interaction.command.booleans["hide_no_contests"] ?: true
+            )
         }
     }
 }
