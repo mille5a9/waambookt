@@ -11,24 +11,26 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking
+import org.bson.conversions.Bson
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.litote.kmongo.coroutine.coroutine
 import waambokt.models.ReprimandLog
-import waambokt.repos.MongoRepo.getOne
-import waambokt.repos.MongoRepo.pushOne
 import waambokt.utils.MongoUtil.mockkCoroutineCollection
 
 class ReprimandTest {
     private val reason = "this is a test"
     private val expected = "test has been reprimanded: $reason"
 
-    @RelaxedMockK private lateinit var user: User
+    @RelaxedMockK
+    private lateinit var user: User
 
-    @RelaxedMockK private lateinit var event: ChatInputCommandInteractionCreateEvent
+    @RelaxedMockK
+    private lateinit var event: ChatInputCommandInteractionCreateEvent
 
-    @RelaxedMockK private lateinit var db: MongoDatabase
+    @RelaxedMockK
+    private lateinit var db: MongoDatabase
 
     private val collection: MongoCollection<ReprimandLog> = mockkCoroutineCollection()
 
@@ -45,13 +47,13 @@ class ReprimandTest {
     fun `execute new reprimand happy path`() = runBlocking {
         coEvery { db.getCollection<ReprimandLog>(any(), any()) } returns collection
 
-        coEvery { collection.coroutine.getOne(any()) } returns null
+        coEvery { collection.coroutine.findOne(any<Bson>()) } returns null
 
-        coEvery { collection.coroutine.pushOne(any(), any()) } returns
+        coEvery { collection.coroutine.insertOne(any<ReprimandLog>(), any()) } returns
             InsertOneResult.unacknowledged()
 
         Assertions.assertEquals(expected, Reprimand(db, event, user, reason).execute())
 
-        coVerify(exactly = 1) { collection.coroutine.pushOne(any(), any()) }
+        coVerify(exactly = 1) { collection.coroutine.insertOne(any<ReprimandLog>(), any()) }
     }
 }
