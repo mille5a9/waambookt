@@ -7,10 +7,8 @@ import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import mu.KotlinLogging
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.eq
+import org.litote.kmongo.util.KMongoUtil.idFilterQuery
 import waambokt.models.ReprimandLog
-import waambokt.repos.MongoRepo.getOne
-import waambokt.repos.MongoRepo.overwriteOneById
-import waambokt.repos.MongoRepo.pushOne
 
 class Reprimand private constructor(
     private val mongo: CoroutineDatabase,
@@ -32,20 +30,20 @@ class Reprimand private constructor(
         logger.info { "reason is $reason" }
         val reprimandLogs = mongo.getCollection<ReprimandLog>("reprimandLog")
 
-        val existingLog = reprimandLogs.getOne(
+        val existingLog = reprimandLogs.findOne(
             ReprimandLog::userId eq offender.id.value.toString()
         )
 
         // brand new, never-before-reprimanded user
-        if (existingLog == null) reprimandLogs.pushOne(
+        if (existingLog == null) reprimandLogs.insertOne(
             ReprimandLog(
                 offender.id.value.toString(),
                 reasons = if (reason.isNotEmpty()) listOf(reason) else emptyList()
             )
         )
         // previously reprimanded user, add reason to list and increment count
-        else reprimandLogs.overwriteOneById(
-            existingLog._id,
+        else reprimandLogs.updateOne(
+            idFilterQuery(existingLog._id),
             ReprimandLog(
                 existingLog.userId,
                 existingLog.count.plus(1),
@@ -63,7 +61,7 @@ class Reprimand private constructor(
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        suspend operator fun invoke(
+        operator fun invoke(
             db: MongoDatabase,
             event: ChatInputCommandInteractionCreateEvent,
             offender: User? = null,
