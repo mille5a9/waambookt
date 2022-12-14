@@ -22,7 +22,7 @@ object Nba {
         "MIL" to "Bucks",
         "MIN" to "Timberwolves",
         "NO" to "Pelicans",
-        "NYK" to "Knicks",
+        "NY" to "Knicks",
         "OKC" to "Thunder",
         "ORL" to "Magic",
         "PHI" to "76ers",
@@ -32,6 +32,6 @@ object Nba {
         "SA" to "Spurs",
         "TOR" to "Raptors",
         "UTAH" to "Jazz",
-        "WAS" to "Wizards"
+        "WSH" to "Wizards"
     )
 }

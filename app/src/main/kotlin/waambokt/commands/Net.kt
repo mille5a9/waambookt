@@ -169,7 +169,7 @@ private constructor(
     private suspend fun fetchMatchups(): List<Triple<String, String, String>> {
         logger.info("fetching matchups")
         val currentDayStr = Date().toInstant().atOffset(ZoneOffset.UTC).format(
-            DateTimeFormatter.ofPattern("yyyyMMdd")
+            DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneOffset.ofHours(-5))
         )
         val response: HttpResponse =
             HttpClient()
