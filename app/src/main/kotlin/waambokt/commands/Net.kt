@@ -90,7 +90,7 @@ private constructor(
         if (this.first == oddsSubstr[0]) oddsSubstr[1].odds(true) else oddsSubstr[1].odds(false)
 
     private fun String.odds(homeFav: Boolean) =
-        Pair(this.toDouble() * if (homeFav) -1 else 1, this.toDouble() * if (homeFav) 1 else -1)
+        Pair(this.toDouble() * if (homeFav) 1 else -1, this.toDouble() * if (homeFav) -1 else 1)
 
     // Scrapes and updates the nba NET information in the db,
     // then returns a map of relevant values for command execution

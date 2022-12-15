@@ -10,10 +10,7 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
-import waambokt.commands.Net
-import waambokt.commands.Ping
-import waambokt.commands.Reprimand
-import waambokt.commands.Sum
+import waambokt.commands.* // ktlint-disable no-wildcard-imports
 import waambokt.config.Database
 import waambokt.config.Env
 import waambokt.config.Registry
@@ -49,6 +46,7 @@ fun main(): Unit = runBlocking {
             "sum" -> Sum(this).respond()
             "reprimand" -> Reprimand(db, this).respond()
             "net" -> Net(db, this).respond()
+            "schedule" -> Schedule(this).respond()
         }
     }
 
