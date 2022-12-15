@@ -6,7 +6,6 @@ import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.AsyncFetcher
 import it.skrape.fetcher.response
@@ -51,36 +50,23 @@ private constructor(
                     return@map "${temp.first} @ ${temp.second} is in progress or finished, no bet"
                 }
 
-                val oddsInfo = temp.third.split(' ')
-                val homeSpread = oddsInfo.getOdds(temp.second)
-                val awaySpread = oddsInfo.getOdds(temp.first)
-                val homeNet = nets.findNet(temp.second)
-                val awayNet = nets.findNet(temp.first)
+                val oddsInfo = temp.getOdds()
+                val netValues = nets.findNets(temp.first, temp.second)
 
-                return@map when (
-                    calculateBet(
-                        homeNet,
-                        awayNet,
-                        homeSpread
-                    )
-                ) {
-                    HowToBetEnum.HOME_SPREAD -> "${Nba.abbr[temp.second]} $homeSpread"
-                    HowToBetEnum.AWAY_SPREAD -> "${Nba.abbr[temp.first]} $awaySpread"
+                return@map when (calculateBet(netValues, oddsInfo.second)) {
+                    HowToBetEnum.HOME_SPREAD -> "${Nba.abbr[temp.second]} ${oddsInfo.second}"
+                    HowToBetEnum.AWAY_SPREAD -> "${Nba.abbr[temp.first]} ${oddsInfo.first}"
                     HowToBetEnum.NO_CONTEST ->
                         if (hideNoContests) "" else "Don't bet on ${temp.first} @ ${temp.second}"
                 }.plus(
-                    if (netOut) " (${temp.second}: $homeNet, ${temp.first}: $awayNet)" else ""
+                    if (netOut) " (${temp.second}: ${netValues.second}, ${temp.first}: ${netValues.first})" else ""
                 )
             }
         return output.filter { it.isNotEmpty() }.joinToString("\n", "```", "```")
     }
 
-    private fun calculateBet(
-        homeNet: Double,
-        awayNet: Double,
-        homeSpread: Double
-    ): HowToBetEnum {
-        val implSpreadH = awayNet - homeNet - 3
+    private fun calculateBet(nets: Pair<Double, Double>, homeSpread: Double): HowToBetEnum {
+        val implSpreadH = nets.first - nets.second - 3
         if (implSpreadH < (homeSpread - Nba.min)) {
             return HowToBetEnum.HOME_SPREAD
         } else if (implSpreadH > (homeSpread + Nba.min)) {
@@ -95,11 +81,16 @@ private constructor(
         NO_CONTEST
     }
 
-    private fun List<NbaNet>.findNet(abbrName: String) =
-        this.find { it.teamName == Nba.abbr[abbrName] }!!.netValue
+    private fun List<NbaNet>.findNets(away: String, home: String) = Pair(this.findNet(away), this.findNet(home))
 
-    private fun List<String>.getOdds(abbr: String) =
-        if (this.first() == abbr) this.last().toDouble() else this.last().toDouble() * -1
+    private fun List<NbaNet>.findNet(team: String) =
+        this.find { it.teamName == Nba.abbr[team] }?.netValue ?: throw NoSuchElementException()
+
+    private fun Triple<String, String, String>.getOdds(oddsSubstr: List<String> = this.third.split(' ')) =
+        if (this.first == oddsSubstr[0]) oddsSubstr[1].odds(true) else oddsSubstr[1].odds(false)
+
+    private fun String.odds(homeFav: Boolean) =
+        Pair(this.toDouble() * if (homeFav) -1 else 1, this.toDouble() * if (homeFav) 1 else -1)
 
     // Scrapes and updates the nba NET information in the db,
     // then returns a map of relevant values for command execution
@@ -168,12 +159,11 @@ private constructor(
 
     private suspend fun fetchMatchups(): List<Triple<String, String, String>> {
         logger.info("fetching matchups")
-        val currentDayStr = Date().toInstant().atOffset(ZoneOffset.UTC).format(
+        val today = Date().toInstant().atOffset(ZoneOffset.UTC).format(
             DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneOffset.ofHours(-5))
         )
-        val response: HttpResponse =
-            HttpClient()
-                .get("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=$currentDayStr")
+        val response = HttpClient()
+            .get("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=$today")
         val gamesList = JSONObject(response.body<String>()).getJSONArray("events")
         return List(gamesList.length()) {
             Triple(gamesList.getTeam(it, 0), gamesList.getTeam(it, 1), gamesList.getOdds(it))
@@ -185,13 +175,8 @@ private constructor(
         this.getJSONObject(index).getString("shortName").split(" @ ")[team]
 
     private fun JSONArray.getOdds(index: Int): String {
-        return this.getJSONObject(index)
-            .getJSONArray("competitions")
-            .getJSONObject(0)
-            .optJSONArray("odds")
-            ?.getJSONObject(0)
-            ?.getString("details")
-            ?: "null"
+        return this.getJSONObject(index).getJSONArray("competitions").getJSONObject(0)
+            .optJSONArray("odds")?.getJSONObject(0)?.getString("details") ?: "null"
     }
 
     companion object {
