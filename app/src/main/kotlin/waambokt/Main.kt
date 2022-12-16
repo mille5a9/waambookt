@@ -13,6 +13,7 @@ import mu.KotlinLogging
 import waambokt.commands.Net
 import waambokt.commands.Ping
 import waambokt.commands.Reprimand
+import waambokt.commands.Schedule
 import waambokt.commands.Sum
 import waambokt.config.Database
 import waambokt.config.Env
@@ -49,6 +50,7 @@ fun main(): Unit = runBlocking {
             "sum" -> Sum(this).respond()
             "reprimand" -> Reprimand(db, this).respond()
             "net" -> Net(db, this).respond()
+            "schedule" -> Schedule(this).respond()
         }
     }
 
