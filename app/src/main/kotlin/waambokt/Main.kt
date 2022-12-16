@@ -10,7 +10,11 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
-import waambokt.commands.* // ktlint-disable no-wildcard-imports
+import waambokt.commands.Net
+import waambokt.commands.Ping
+import waambokt.commands.Reprimand
+import waambokt.commands.Schedule
+import waambokt.commands.Sum
 import waambokt.config.Database
 import waambokt.config.Env
 import waambokt.config.Registry
