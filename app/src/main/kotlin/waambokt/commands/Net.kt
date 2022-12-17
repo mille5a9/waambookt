@@ -86,8 +86,11 @@ private constructor(
     private fun List<NbaNet>.findNet(team: String) =
         this.find { it.teamName == Nba.abbr[team] }?.netValue ?: throw NoSuchElementException()
 
-    private fun Triple<String, String, String>.getOdds(oddsSubstr: List<String> = this.third.split(' ')) =
-        if (this.first == oddsSubstr[0]) oddsSubstr[1].odds(true) else oddsSubstr[1].odds(false)
+    private fun Triple<String, String, String>.getOdds(): Pair<Double, Double> {
+        val oddsSubstr = this.third.split(' ')
+        if (oddsSubstr.size == 1) return Pair(0.0, 0.0)
+        return if (this.first == oddsSubstr[0]) oddsSubstr[1].odds(true) else oddsSubstr[1].odds(false)
+    }
 
     private fun String.odds(homeFav: Boolean) =
         Pair(this.toDouble() * if (homeFav) 1 else -1, this.toDouble() * if (homeFav) -1 else 1)
