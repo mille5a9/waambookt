@@ -2,6 +2,22 @@ package waambokt.constants
 
 object Nba {
     const val min: Double = 2.0
+
+    enum class NetResultsEnum {
+        INDETERMINATE,
+        HOME_WIN,
+        HOME_LOSS,
+        AWAY_WIN,
+        AWAY_LOSS,
+        DRAW
+    }
+
+    enum class HowToBetEnum {
+        HOME_SPREAD,
+        AWAY_SPREAD,
+        NO_CONTEST
+    }
+
     val abbr: Map<String, String> = mapOf(
         "ATL" to "Hawks",
         "BKN" to "Nets",

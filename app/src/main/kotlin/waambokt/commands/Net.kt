@@ -21,10 +21,13 @@ import org.json.JSONObject
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import waambokt.constants.Nba
+import waambokt.constants.Nba.HowToBetEnum
+import waambokt.models.NbaMatchup
 import waambokt.models.NbaNet
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import kotlin.math.abs
 
 class Net
 private constructor(
@@ -44,68 +47,63 @@ private constructor(
 
     override suspend fun execute(): String {
         logger.info("execute net")
-        val nets = refreshNet()
+        val decisions = fetchMatchups(refreshNet()).map {
+            Pair(it, calculateBet(it))
+        }
         val output =
-            fetchMatchups().map { temp ->
-                if (temp.third == "null") {
-                    return@map "${temp.first} @ ${temp.second} is in progress or finished, no bet"
+            decisions.map {
+                if (abs(it.first.homeSpread) == 0.01) {
+                    return@map "${it.first.homeName} @ ${it.first.awayName} is in progress or finished, no bet"
                 }
 
-                val oddsInfo = temp.getOdds()
-                val netValues = nets.findNets(temp.first, temp.second)
-
-                return@map when (calculateBet(netValues, oddsInfo.second)) {
-                    HowToBetEnum.HOME_SPREAD -> "${Nba.abbr[temp.second]} ${oddsInfo.second}"
-                    HowToBetEnum.AWAY_SPREAD -> "${Nba.abbr[temp.first]} ${oddsInfo.first}"
+                return@map when (it.second) {
+                    HowToBetEnum.HOME_SPREAD -> "${Nba.abbr[it.first.homeName]} ${it.first.homeSpread}"
+                    HowToBetEnum.AWAY_SPREAD -> "${Nba.abbr[it.first.awayName]} ${it.first.homeSpread * -1}"
                     HowToBetEnum.NO_CONTEST ->
-                        if (hideNoContests) "" else "Don't bet on ${temp.first} @ ${temp.second}"
+                        if (hideNoContests) "" else "Don't bet on ${it.first.awayName} @ ${it.first.homeName}"
                 }.plus(
-                    if (netOut) " (${temp.second}: ${netValues.second}, ${temp.first}: ${netValues.first})" else ""
+                    if (netOut) {
+                        " (${it.first.homeName}: ${it.first.homeNet}, ${it.first.awayName}: ${it.first.awayNet})"
+                    } else ""
                 )
             }
+        decisions.saveMatchups()
         return output.filter { it.isNotEmpty() }.joinToString("\n", "```", "```")
     }
 
-    private fun calculateBet(nets: Pair<Double, Double>, homeSpread: Double): HowToBetEnum {
+    private suspend fun List<Pair<NbaMatchup, HowToBetEnum>>.saveMatchups() {
+        val matchupsCollection = mongo.getCollection<NbaMatchup>("nbaMatchup")
+        this.forEach {
+            val newMap = it.first.formulaChoiceH.plus(formula to it.second.ordinal)
+            matchupsCollection.save(
+                it.first.copy(formulaChoiceH = newMap)
+            )
+        }
+    }
+
+    private fun calculateBet(matchup: NbaMatchup): HowToBetEnum {
         return when (formula) {
-            FormulaEnum.NET3MINUS2.ordinal -> calculateNet3Minus2(nets, homeSpread)
+            FormulaEnum.NET3MINUS2.ordinal -> calculateNet3Minus2(matchup)
             else -> HowToBetEnum.NO_CONTEST
         }
     }
 
-    private fun calculateNet3Minus2(nets: Pair<Double, Double>, homeSpread: Double): HowToBetEnum {
-        val implSpreadH = nets.first - nets.second - 3
-        if (implSpreadH < (homeSpread - Nba.min)) {
+    private fun calculateNet3Minus2(matchup: NbaMatchup): HowToBetEnum {
+        val implSpreadH = matchup.awayNet - matchup.homeNet - 3
+        if (implSpreadH < (matchup.homeSpread - Nba.min)) {
             return HowToBetEnum.HOME_SPREAD
-        } else if (implSpreadH > (homeSpread + Nba.min)) {
+        } else if (implSpreadH > (matchup.homeSpread + Nba.min)) {
             return HowToBetEnum.AWAY_SPREAD
         }
         return HowToBetEnum.NO_CONTEST
-    }
-
-    private enum class HowToBetEnum {
-        HOME_SPREAD,
-        AWAY_SPREAD,
-        NO_CONTEST
     }
 
     private enum class FormulaEnum {
         NET3MINUS2
     }
 
-    private fun List<NbaNet>.findNets(away: String, home: String) = Pair(this.findNet(away), this.findNet(home))
-
     private fun List<NbaNet>.findNet(team: String) =
-        this.find { it.teamName == Nba.abbr[team] }?.netValue ?: throw NoSuchElementException()
-
-    private fun Triple<String, String, String>.getOdds(): Pair<Double, Double> {
-        val oddsSubstr = this.third.split(' ')
-        if (oddsSubstr.size == 1) return Pair(0.0, 0.0)
-        return if (this.first == oddsSubstr[0]) oddsSubstr[1].odds(true) else oddsSubstr[1].odds(false)
-    }
-
-    private fun String.odds(homeFav: Boolean) =
-        Pair(this.toDouble() * if (homeFav) 1 else -1, this.toDouble() * if (homeFav) -1 else 1)
+        this.find { it.teamName == team }?.netValue ?: throw NoSuchElementException()
 
     // Scrapes and updates the nba NET information in the db,
     // then returns a map of relevant values for command execution
@@ -172,7 +170,7 @@ private constructor(
         return allNets
     }
 
-    private suspend fun fetchMatchups(): List<Triple<String, String, String>> {
+    private suspend fun fetchMatchups(nets: List<NbaNet>): List<NbaMatchup> {
         logger.info("fetching matchups")
         val today = Date().toInstant().atOffset(ZoneOffset.UTC).format(
             DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneOffset.ofHours(-5))
@@ -181,9 +179,25 @@ private constructor(
             .get("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=$today")
         val gamesList = JSONObject(response.body<String>()).getJSONArray("events")
         return List(gamesList.length()) {
-            Triple(gamesList.getTeam(it, 0), gamesList.getTeam(it, 1), gamesList.getOdds(it))
+            val homeAbbr = gamesList.getTeam(it, 1)
+            val awayAbbr = gamesList.getTeam(it, 0)
+            val homeSpread = gamesList.getOdds(it).odds(homeAbbr)
+            NbaMatchup(
+                gamesList.getGameId(it),
+                Nba.abbr[homeAbbr] ?: "",
+                Nba.abbr[awayAbbr] ?: "",
+                homeSpread,
+                nets.findNet(homeAbbr),
+                nets.findNet(awayAbbr)
+            )
         }
     }
+
+    private fun String.odds(homeAbbr: String) =
+        this.toDouble() * if (this.split(' ').first() == homeAbbr) 1 else -1
+
+    private fun JSONArray.getGameId(index: Int) =
+        this.getJSONObject(index).getString("id")
 
     // helpers to decrease verbosity of the json-parsing code
     private fun JSONArray.getTeam(index: Int, team: Int) =
@@ -191,7 +205,7 @@ private constructor(
 
     private fun JSONArray.getOdds(index: Int): String {
         return this.getJSONObject(index).getJSONArray("competitions").getJSONObject(0)
-            .optJSONArray("odds")?.getJSONObject(0)?.getString("details") ?: "null"
+            .optJSONArray("odds")?.getJSONObject(0)?.getString("details") ?: "-0.01"
     }
 
     companion object {
