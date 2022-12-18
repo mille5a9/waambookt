@@ -7,8 +7,8 @@ import mu.KotlinLogging
 class Sum
 private constructor(
     private val event: ChatInputCommandInteractionCreateEvent,
-    private var first: Long,
-    private var second: Long
+    private val first: Long,
+    private val second: Long
 ) : Command() {
 
     override suspend fun respond() {
@@ -25,7 +25,7 @@ private constructor(
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        suspend operator fun invoke(
+        operator fun invoke(
             event: ChatInputCommandInteractionCreateEvent,
             first: Long? = null,
             second: Long? = null

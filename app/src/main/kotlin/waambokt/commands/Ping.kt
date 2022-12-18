@@ -5,14 +5,9 @@ import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
 import mu.KotlinLogging
 
 class Ping private constructor(
-    private val event: ChatInputCommandInteractionCreateEvent
+    private val event: ChatInputCommandInteractionCreateEvent,
+    private val pingType: String
 ) : Command() {
-
-    // init contains command argument assignment logic
-    init {
-        logger.info("init ping")
-    }
-
     // entry point for the invoke operator after initialization.
     // builds the response
     override suspend fun respond() {
@@ -26,17 +21,23 @@ class Ping private constructor(
     // command logic is split from event processing;
     // this is for keeping the logic unit-testable when
     // the events and responses cannot be mocked
-    override suspend fun execute(): String = "Pong!"
+    override suspend fun execute(): String = when (pingType) {
+        "ping" -> "Pong!"
+        "pong" -> "Ping!"
+        else -> "Unknown subcommand"
+    }
 
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        suspend operator fun invoke(
-            event: ChatInputCommandInteractionCreateEvent
+        operator fun invoke(
+            event: ChatInputCommandInteractionCreateEvent,
+            pingType: String? = null
         ): Ping {
             logger.info("building ping")
             return Ping(
-                event
+                event,
+                (pingType ?: event.interaction.command.strings["ping_type"])!!
             )
         }
     }

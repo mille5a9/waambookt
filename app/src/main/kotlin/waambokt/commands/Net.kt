@@ -30,6 +30,7 @@ class Net
 private constructor(
     private val mongo: CoroutineDatabase,
     private val event: ChatInputCommandInteractionCreateEvent,
+    private val formula: Int,
     private val netOut: Boolean,
     private val hideNoContests: Boolean
 ) : Command() {
@@ -66,6 +67,13 @@ private constructor(
     }
 
     private fun calculateBet(nets: Pair<Double, Double>, homeSpread: Double): HowToBetEnum {
+        return when (formula) {
+            FormulaEnum.NET3MINUS2.ordinal -> calculateNet3Minus2(nets, homeSpread)
+            else -> HowToBetEnum.NO_CONTEST
+        }
+    }
+
+    private fun calculateNet3Minus2(nets: Pair<Double, Double>, homeSpread: Double): HowToBetEnum {
         val implSpreadH = nets.first - nets.second - 3
         if (implSpreadH < (homeSpread - Nba.min)) {
             return HowToBetEnum.HOME_SPREAD
@@ -79,6 +87,10 @@ private constructor(
         HOME_SPREAD,
         AWAY_SPREAD,
         NO_CONTEST
+    }
+
+    private enum class FormulaEnum {
+        NET3MINUS2
     }
 
     private fun List<NbaNet>.findNets(away: String, home: String) = Pair(this.findNet(away), this.findNet(home))
@@ -188,6 +200,7 @@ private constructor(
         operator fun invoke(
             db: MongoDatabase,
             event: ChatInputCommandInteractionCreateEvent,
+            formula: Int? = null,
             netOut: Boolean? = null,
             hideNoContests: Boolean? = null
         ): Net {
@@ -195,6 +208,7 @@ private constructor(
             return Net(
                 CoroutineDatabase(db),
                 event,
+                formula ?: event.interaction.command.integers["formula"]?.toInt() ?: 0,
                 netOut ?: event.interaction.command.booleans["net_out"] ?: false,
                 hideNoContests ?: event.interaction.command.booleans["hide_no_contests"] ?: true
             )
