@@ -21,7 +21,7 @@ import kotlin.NoSuchElementException
 class Schedule
 private constructor(
     private val event: ChatInputCommandInteractionCreateEvent,
-    private val leagueName: String
+    private val league: String
 ) : Command() {
     private val espnApiBaseUrl: String = "https://site.web.api.espn.com/apis/v2/scoreboard/header"
 
@@ -34,16 +34,10 @@ private constructor(
         }
     }
 
-    override suspend fun execute(): String {
-        val league = Leagues.aliases[leagueName.lowercase()] ?: return "Pick a real sport"
-        Leagues.sportNames[league.lowercase()] ?: return "Sport not found for given league"
-        return ""
-    }
+    override suspend fun execute(): String = ""
 
     private suspend fun embeds(): List<EmbedBuilder> {
         logger.info("executing schedule")
-
-        val league = Leagues.aliases[leagueName.lowercase()] ?: throw NoSuchElementException()
         val sport = Leagues.sportNames[league.lowercase()] ?: throw NoSuchElementException()
 
         val dateUrlParam = addDateParam(sport)
