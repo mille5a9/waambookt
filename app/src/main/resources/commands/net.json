@@ -4,6 +4,18 @@
   "type": 1,
   "options": [
     {
+      "name": "formula",
+      "description": "Choose a stat-based formula to use to make predictions",
+      "type": 4,
+      "choices": [
+        {
+          "name": "NET3 -2",
+          "value": 0
+        }
+      ],
+      "required": true
+    },
+    {
       "name": "net_out",
       "description": "Include recent NET ratings for each team",
       "type": 5,
