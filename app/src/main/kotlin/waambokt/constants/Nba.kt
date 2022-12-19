@@ -6,9 +6,7 @@ object Nba {
     enum class NetResultsEnum {
         INDETERMINATE,
         HOME_WIN,
-        HOME_LOSS,
         AWAY_WIN,
-        AWAY_LOSS,
         DRAW
     }
 

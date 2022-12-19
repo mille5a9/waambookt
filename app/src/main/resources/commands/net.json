@@ -9,6 +9,10 @@
       "type": 4,
       "choices": [
         {
+          "name": "Gather Results (No Formula)",
+          "value": -1
+        },
+        {
           "name": "NET3 -2",
           "value": 0
         }
