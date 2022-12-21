@@ -195,8 +195,11 @@ private constructor(
     private fun List<NbaNet>.findNet(team: String) =
         this.find { it.teamName == Nba.abbr[team] }?.netValue ?: throw NoSuchElementException()
 
-    private fun String.odds(homeAbbr: String) =
-        this.substringAfter(' ').toDouble() * if (this.substringBefore(' ') == homeAbbr) 1 else -1
+    private fun String.odds(homeAbbr: String): Double {
+        return if (this == "EVEN") 0.0 else {
+            this.substringAfter(' ').toDouble() * if (this.substringBefore(' ') == homeAbbr) 1 else -1
+        }
+    }
 
     private fun JSONArray.getGameId(index: Int) =
         this.getJSONObject(index).getString("id")
