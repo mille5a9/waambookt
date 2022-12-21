@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.waambokt.service.spec.net";
+
+package org.waambokt.service.spec.net;
+
+service NetService {
+  rpc GetFormulation (FormulaRequest) returns (FormulaResponse) {}
+}
+
+message FormulaRequest {
+
+  enum FormulasEnum {
+    FORMULAS_ENUM_UNSPECIFIED = 0;
+    NET_3MINUS_2 = 1;
+  }
+
+  FormulasEnum formula = 1;
+}
+
+message FormulaResult {
+
+  enum FormulaChoiceEnum {
+    FORMULA_CHOICE_ENUM_UNSPECIFIED = 0;
+    HOME_SPREAD = 2;
+    AWAY_SPREAD = 3;
+    NO_CONTEST = 4;
+  }
+
+  enum SpreadResultEnum {
+    SPREAD_RESULT_ENUM_UNSPECIFIED = 0;
+    HOME_WIN = 1;
+    AWAY_WIN = 2;
+    DRAW = 3;
+  }
+
+  int32 game_id = 1;
+  FormulaChoiceEnum choice = 2;
+  SpreadResultEnum result = 3;
+}
+
+message FormulaResponse {
+  repeated FormulaResult formula_results = 1;
+}
