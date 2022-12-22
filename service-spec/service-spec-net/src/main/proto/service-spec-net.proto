@@ -23,9 +23,9 @@ message FormulaResult {
 
   enum FormulaChoiceEnum {
     FORMULA_CHOICE_ENUM_UNSPECIFIED = 0;
-    HOME_SPREAD = 2;
-    AWAY_SPREAD = 3;
-    NO_CONTEST = 4;
+    HOME_SPREAD = 1;
+    AWAY_SPREAD = 2;
+    NO_CONTEST = 3;
   }
 
   enum SpreadResultEnum {
