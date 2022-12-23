@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("dev.kord:kord-core:0.8.0-M17")
     implementation("io.grpc:grpc-netty:1.51.0")
     implementation("io.grpc:grpc-kotlin-stub:1.3.0")
     implementation("io.grpc:grpc-protobuf:1.51.1")

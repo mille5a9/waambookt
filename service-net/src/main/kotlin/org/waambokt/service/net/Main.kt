@@ -5,15 +5,16 @@ import org.litote.kmongo.reactivestreams.KMongo.createClient
 import org.waambokt.common.WaamboktGrpcServer
 import org.waambokt.common.constants.Env
 import org.waambokt.common.constants.Environment
+import org.waambokt.common.extensions.EnvironmentExtension.bool
 
 fun main() {
-    val env = Environment(Env.PORT, Env.MONGO_CONNECTION_STRING, Env.PROD)
-    val port = env["PORT"]?.toInt() ?: 50051
+    val env = Environment(Env.PORT, Env.MONGO_CONNECTION_STRING, Env.ISPROD)
+    val port = env["PORT"].toInt()
     val server = WaamboktGrpcServer(
         port,
         NetService(
-            createClient(env["MONGO_CONNECTION_STRING"]!!)
-                .getDatabase(env["PROD", "prodkt", "testkt"])
+            createClient(env["MONGO_CONNECTION_STRING"])
+                .getDatabase(if (env.bool("ISPROD")) "prodkt" else "testkt")
                 .coroutine
         )
     )
