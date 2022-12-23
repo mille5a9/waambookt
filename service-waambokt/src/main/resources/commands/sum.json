@@ -1,0 +1,19 @@
+{
+  "name": "sum",
+  "description": "Calculates the sum of two integers",
+  "type": 1,
+  "options": [
+    {
+      "name": "first",
+      "description": "First integer",
+      "type": 4,
+      "required": true
+    },
+    {
+      "name": "second",
+      "description": "Second integer",
+      "type": 4,
+      "required": true
+    }
+  ]
+}
