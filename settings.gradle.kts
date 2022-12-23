@@ -10,7 +10,9 @@
 rootProject.name = "waambokt"
 include("app")
 include("service-net")
+findProject("services:service-net")?.name = "service-net"
 include("service-spec:service-spec-net")
 findProject(":service-spec:service-spec-net")?.name = "service-spec-net"
 include("common")
 include("service-waambokt")
+include("service-group")
