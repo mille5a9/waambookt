@@ -8,14 +8,15 @@ import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
 
 fun main() {
-    val env = Environment(Env.PORT, Env.MONGO_CONNECTION_STRING, Env.ISPROD)
+    val env = Environment(Env.PORT, Env.MONGO_CONNECTION_STRING, Env.ISPROD, Env.ODDS)
     val port = env["PORT"].toInt()
     val server = WaamboktGrpcServer(
         port,
         OddsService(
             KMongo.createClient(env["MONGO_CONNECTION_STRING"])
                 .getDatabase(if (env.bool("ISPROD")) "prodkt" else "testkt")
-                .coroutine
+                .coroutine,
+            env
         )
     )
     server.start()

@@ -13,15 +13,16 @@ message Bet {
     oneof best_bet {
         int32 best_moneyline = 1;
         double best_spread = 2;
-        int32 best_total = 3;
+        double best_total = 3;
         int32 best_future = 4;
     }
-    string best_book = 5;
-    string best_side = 6;
+    string market = 5;
+    string best_book = 6;
+    string best_side = 7;
 }
 
-message NbaSpreadOdds {
-    int32 game_id = 1;
+message NbaOdds {
+    string game_id = 1;
     string home_team_name = 2;
     string away_team_name = 3;
     Bet home_option = 4;
@@ -32,8 +33,8 @@ message NbaOddsRequest {
 
     enum NbaOddsMarketsEnum {
         NBA_ODDS_MARKETS_ENUM_UNSPECIFIED = 0;
-        HEAD_TO_HEAD = 1;
-        POINT_SPREADS = 2;
+        H2H = 1;
+        SPREADS = 2;
         TOTALS = 3;
         OUTRIGHTS = 4;
     }
@@ -42,5 +43,5 @@ message NbaOddsRequest {
 }
 
 message NbaOddsResponse {
-    repeated NbaSpreadOdds games = 1;
+    repeated NbaOdds games = 1;
 }
