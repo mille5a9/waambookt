@@ -10,23 +10,19 @@ service OddsService {
 }
 
 message Bet {
-    oneof best_bet {
-        int32 best_moneyline = 1;
-        double best_spread = 2;
-        double best_total = 3;
-        int32 best_future = 4;
-    }
-    string market = 5;
-    string best_book = 6;
-    string best_side = 7;
+    string market = 1;
+    string best_book = 2;
+    string best_side = 3;
+    double best_line = 4;
+    double best_odds = 5;
 }
 
 message NbaOdds {
     string game_id = 1;
     string home_team_name = 2;
     string away_team_name = 3;
-    Bet home_option = 4;
-    Bet away_option = 5;
+    Bet home_or_over = 4;
+    Bet away_or_under = 5;
 }
 
 message NbaOddsRequest {
@@ -36,7 +32,6 @@ message NbaOddsRequest {
         H2H = 1;
         SPREADS = 2;
         TOTALS = 3;
-        OUTRIGHTS = 4;
     }
 
     repeated NbaOddsMarketsEnum odds_markets = 1;

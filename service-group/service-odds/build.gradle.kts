@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation("com.google.guava:guava:31.1-jre")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
     implementation("io.grpc:grpc-netty:1.51.0")
     implementation("io.grpc:grpc-kotlin-stub:1.3.0")
     implementation("io.grpc:grpc-protobuf:1.51.1")
@@ -35,5 +37,5 @@ tasks.getByName<Test>("test") {
 }
 
 application {
-    mainClass.set("org.waambokt.service.net.MainKt")
+    mainClass.set("org.waambokt.service.odds.MainKt")
 }

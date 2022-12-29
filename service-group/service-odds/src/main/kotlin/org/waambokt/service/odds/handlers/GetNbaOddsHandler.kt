@@ -3,124 +3,89 @@ package org.waambokt.service.odds.handlers
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import mu.KotlinLogging
 import org.json.JSONArray
-import org.json.JSONObject
-import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.waambokt.common.constants.Environment
+import org.waambokt.service.odds.extensions.JSONArrayExtension.mapEvents
+import org.waambokt.service.odds.models.Bookmaker
+import org.waambokt.service.odds.models.Outcome
 import org.waambokt.service.spec.odds.Bet
 import org.waambokt.service.spec.odds.NbaOdds
 import org.waambokt.service.spec.odds.NbaOddsRequest
 import org.waambokt.service.spec.odds.NbaOddsResponse
-import kotlin.math.abs
+
 class GetNbaOddsHandler constructor(
-    private val db: CoroutineDatabase,
     private val envars: Environment
 ) {
     suspend fun handle(request: NbaOddsRequest): NbaOddsResponse {
         val markets = request.oddsMarketsList.joinToString(",") { it.name.lowercase() }
         val books = "fanduel,draftkings,betmgm,foxbet,pointsbetus,betrivers,barstool,wynnbet,williamhill_us,betonlineag"
-        val oddsResponse = HttpClient()
-            .get("$baseUrl/basketball_nba/odds/?apiKey=${envars["ODDS"]}&markets=$markets&bookmakers=$books")
+        val requestStr = "$baseUrl/basketball_nba/odds/?apiKey=${envars["ODDS"]}&markets=$markets&bookmakers=$books"
+        logger.info { requestStr }
+        val oddsResponse = HttpClient().get(requestStr)
+
         val grpcResponse = NbaOddsResponse.newBuilder()
         JSONArray(oddsResponse.body<String>()).mapEvents().forEach {
             for (oddsMarketEnum in request.oddsMarketsList) {
+                val market = oddsMarketEnum.name.lowercase()
                 grpcResponse.addGames(
                     NbaOdds.newBuilder()
                         .setGameId(it.id)
                         .setHomeTeamName(it.home)
                         .setAwayTeamName(it.away)
-                        .setHomeOption(it.getBestBet(true), oddsMarketEnum.name.lowercase())
-                        .setAwayOption(it.getBestBet(false), oddsMarketEnum.name.lowercase())
+                        .setHomeOrOver(it.bookmakers.getBestBet(market, if (market == "totals") "Over" else it.home))
+                        .setAwayOrUnder(it.bookmakers.getBestBet(market, if (market == "totals") "Under" else it.away))
+                        .build()
                 )
             }
         }
+        logger.info { (grpcResponse.toString()) }
 
-        return NbaOddsResponse.getDefaultInstance()
+        return grpcResponse.build()
     }
 
-    private fun Event.getBestBet(isHome: Boolean, market: String): Bet {
-        this.bookmakers.reduce { acc, bookmaker ->
-            if (
-                abs(acc.markets.find {
-                    it.market == market
-                }?.outcomes?.find {
-                    if (isHome) it.name == this.home else it.name == this.away
-                }?.point ?: 0.0) < kotlin.math.abs(bookmaker.markets.find {
-                    it.market == market
-                }?.outcomes?.find {
-                    if (isHome) it.name == this.home else it.name == this.away
-                }?.point ?: 0.0)
-            )
+    private fun List<Bookmaker>.getBestBet(
+        market: String,
+        name: String
+    ) = this.map {
+        logger.info { "getBestBet mapping Bookmakers" }
+        OutcomeMeta(
+            it.title,
+            it.findMarketOutcomes(market).findOutcome(name)
+        )
+    }.reduce { acc, book ->
+        logger.info { "getBestBet reducing Bookmakers" }
+        if (acc.outcome.point < book.outcome.point) book
+        else if (acc.outcome.point > book.outcome.point) acc
+        else if (acc.outcome.price < book.outcome.price) book
+        else acc
+    }.let {
+        logger.info { "getBestBet building Bet" }
+        Bet.newBuilder()
+            .setMarket(market)
+            .setBestBook(it.title)
+            .setBestSide(it.outcome.name)
+            .setBestLine(it.outcome.point)
+            .setBestOdds(it.outcome.price)
+            .build()
+    }
+
+    private fun Bookmaker.findMarketOutcomes(market: String) = this.markets.find { it.market == market }!!.outcomes
+
+    private fun List<Outcome>.findOutcome(name: String) =
+        this.find { it.name == name }!!.let {
+            logger.info { "findOutcome building Outcome" }
+            Outcome(it.name, it.price, if (it.point.isNaN()) 0.0 else it.point)
         }
-    }
-
-    private fun JSONArray.mapEvents() = this.map { any ->
-        JSONObject(any).let {
-            Event(
-                it.getString("id"),
-                it.getString("commence_time"),
-                it.getString("home_team"),
-                it.getString("away_team"),
-                it.getJSONArray("bookmakers").mapBookmakers()
-            )
-        }
-    }
-
-    private fun JSONArray.mapBookmakers() = this.map { any ->
-        JSONObject(any).let {
-            Bookmaker(
-                it.getString("key"),
-                it.getString("title"),
-                it.getJSONArray("markets").mapMarkets()
-            )
-        }
-    }
-
-    private fun JSONArray.mapMarkets() = this.map { any ->
-        JSONObject(any).let {
-            Market(
-                it.getString("key"),
-                it.getJSONArray("outcomes").mapOutcomes()
-            )
-        }
-    }
-
-    private fun JSONArray.mapOutcomes() = this.map { any ->
-        JSONObject(any).let {
-            Outcome(
-                it.getString("name"),
-                it.getDouble("price"),
-                it.getDouble("point")
-            )
-        }
-    }
 
     companion object {
         private const val baseUrl = "https://api.the-odds-api.com/v4/sports"
 
-        data class Event(
-            val id: String,
-            val time: String,
-            val home: String,
-            val away: String,
-            val bookmakers: List<Bookmaker>
-        )
+        private val logger = KotlinLogging.logger { }
 
-        data class Bookmaker(
-            val key: String,
+        data class OutcomeMeta(
             val title: String,
-            val markets: List<Market>
-        )
-
-        data class Market(
-            val market: String,
-            val outcomes: List<Outcome>
-        )
-
-        data class Outcome(
-            val name: String,
-            val price: Double,
-            val point: Double
+            val outcome: Outcome
         )
     }
 }
