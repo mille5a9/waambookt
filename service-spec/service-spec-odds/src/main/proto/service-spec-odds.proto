@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.waambokt.service.spec.odds";
+
+package org.waambokt.service.spec.odds;
+
+service OddsService {
+    rpc GetNbaOdds (NbaOddsRequest) returns (NbaOddsResponse) {}
+}
+
+message Bet {
+    string market = 1;
+    string best_book = 2;
+    string best_side = 3;
+    double best_line = 4;
+    double best_odds = 5;
+}
+
+message NbaOdds {
+    string game_id = 1;
+    string home_team_name = 2;
+    string away_team_name = 3;
+    Bet home_or_over = 4;
+    Bet away_or_under = 5;
+}
+
+message NbaOddsRequest {
+
+    enum NbaOddsMarketsEnum {
+        NBA_ODDS_MARKETS_ENUM_UNSPECIFIED = 0;
+        H2H = 1;
+        SPREADS = 2;
+        TOTALS = 3;
+    }
+
+    repeated NbaOddsMarketsEnum odds_markets = 1;
+}
+
+message NbaOddsResponse {
+    repeated NbaOdds games = 1;
+}

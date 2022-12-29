@@ -9,10 +9,14 @@
 
 rootProject.name = "waambokt"
 include("app")
-include("service-net")
-findProject("services:service-net")?.name = "service-net"
 include("service-spec:service-spec-net")
 findProject(":service-spec:service-spec-net")?.name = "service-spec-net"
 include("common")
 include("service-waambokt")
 include("service-group")
+include("service-group:service-net")
+findProject("service-group:service-net")?.name = "service-net"
+include("service-group:service-odds")
+findProject(":service-group:service-odds")?.name = "service-odds"
+include("service-spec:service-spec-odds")
+findProject(":service-spec:service-spec-odds")?.name = "service-spec-odds"
