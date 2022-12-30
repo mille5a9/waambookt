@@ -3,6 +3,8 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "org.waambokt.service.spec.odds";
 
+import "google/protobuf/timestamp.proto";
+
 package org.waambokt.service.spec.odds;
 
 service OddsService {
@@ -23,6 +25,7 @@ message NbaOdds {
     string away_team_name = 3;
     Bet home_or_over = 4;
     Bet away_or_under = 5;
+    google.protobuf.Timestamp time = 6;
 }
 
 message NbaOddsRequest {

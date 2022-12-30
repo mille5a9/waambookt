@@ -1,5 +1,8 @@
 package org.waambokt.service.odds.handlers
 
+import com.google.common.io.Resources
+import com.google.protobuf.Timestamp
+import com.google.type.DateTime
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -13,6 +16,12 @@ import org.waambokt.service.spec.odds.Bet
 import org.waambokt.service.spec.odds.NbaOdds
 import org.waambokt.service.spec.odds.NbaOddsRequest
 import org.waambokt.service.spec.odds.NbaOddsResponse
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class GetNbaOddsHandler constructor(
     private val envars: Environment
@@ -22,10 +31,12 @@ class GetNbaOddsHandler constructor(
         val books = "fanduel,draftkings,betmgm,foxbet,pointsbetus,betrivers,barstool,wynnbet,williamhill_us,betonlineag"
         val requestStr = "$baseUrl/basketball_nba/odds/?apiKey=${envars["ODDS"]}&markets=$markets&bookmakers=$books"
         logger.info { requestStr }
-        val oddsResponse = HttpClient().get(requestStr)
+//        val oddsResponse = HttpClient().get(requestStr)
+        val fakeResponse = Resources.getResource("api-odds.json").readText()
 
         val grpcResponse = NbaOddsResponse.newBuilder()
-        JSONArray(oddsResponse.body<String>()).mapEvents().forEach {
+//        JSONArray(oddsResponse.body<String>()).mapEvents().forEach {
+        JSONArray(fakeResponse).mapEvents().forEach {
             for (oddsMarketEnum in request.oddsMarketsList) {
                 val market = oddsMarketEnum.name.lowercase()
                 grpcResponse.addGames(
@@ -35,6 +46,12 @@ class GetNbaOddsHandler constructor(
                         .setAwayTeamName(it.away)
                         .setHomeOrOver(it.bookmakers.getBestBet(market, if (market == "totals") "Over" else it.home))
                         .setAwayOrUnder(it.bookmakers.getBestBet(market, if (market == "totals") "Under" else it.away))
+                        .setTime(
+                            Timestamp.newBuilder()
+                                .setSeconds(Instant.parse(it.time).minusSeconds(3600 * 5).epochSecond)
+                                .setNanos(0)
+                                .build()
+                        )
                         .build()
                 )
             }

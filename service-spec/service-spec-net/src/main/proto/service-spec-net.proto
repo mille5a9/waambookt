@@ -35,9 +35,13 @@ message FormulaResult {
     DRAW = 3;
   }
 
-  int32 game_id = 1;
-  FormulaChoiceEnum choice = 2;
-  SpreadResultEnum result = 3;
+  string game_id = 1;
+  string book = 2;
+  string name = 3;
+  double line = 4;
+  double odds = 5;
+  FormulaChoiceEnum choice = 6;
+  SpreadResultEnum result = 7;
 }
 
 message FormulaResponse {

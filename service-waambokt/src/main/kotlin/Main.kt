@@ -12,6 +12,7 @@ import org.waambokt.common.constants.Env
 import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
 import org.waambokt.service.waambokt.commands.Ping
+import org.waambokt.service.waambokt.commands.Schedule
 import org.waambokt.service.waambokt.commands.Sum
 import org.waambokt.service.waambokt.configs.CommandsConfig
 import org.waambokt.service.waambokt.enums.CommandEnum
@@ -61,6 +62,7 @@ suspend fun GuildChatInputCommandInteractionCreateEvent.digest() {
     return when (CommandEnum.values().find { it.cmdName == this.interaction.invokedCommandName }) {
         CommandEnum.PING -> Ping(this).respond()
         CommandEnum.SUM -> Sum(this).respond()
+        CommandEnum.SCHEDULE -> Schedule(this).respond()
         else -> kordLogger.info { "Command ${this.interaction.invokedCommandName} not found. Skipping..." }
     }
 }

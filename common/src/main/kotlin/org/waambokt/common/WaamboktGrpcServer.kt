@@ -6,11 +6,12 @@ import io.grpc.ServerBuilder
 
 class WaamboktGrpcServer(
     private val port: Int,
-    service: BindableService
+    vararg services: BindableService
 ) {
-    private val server: Server = ServerBuilder.forPort(port)
-        .addService(service)
-        .build()
+    private val server: Server = ServerBuilder.forPort(port).let {
+        for (service in services) it.addService(service)
+        it.build()
+    }
 
     fun start() {
         server.start()

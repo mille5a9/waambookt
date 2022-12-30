@@ -17,10 +17,12 @@ dependencies {
     implementation("dev.kord:kord-core:0.8.0-M17")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.json:json:20220924")
     implementation("org.slf4j:slf4j-simple:2.0.5")
 
     implementation(project(":common"))
     implementation(project(":service-spec:service-spec-net"))
+    implementation(project(":service-spec:service-spec-odds"))
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
