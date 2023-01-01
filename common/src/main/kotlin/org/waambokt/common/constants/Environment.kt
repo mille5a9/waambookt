@@ -15,6 +15,7 @@ class Environment(
                 Env.MONGO_CONNECTION_STRING -> System.getenv("MONGO_CONNECTION_STRING")
                 Env.PORT -> System.getenv("PORT")
                 Env.ODDS -> System.getenv("ODDS")
+                Env.GRPC -> System.getenv("GRPC")
             }
         )
     }
@@ -30,5 +31,6 @@ enum class Env {
     TOKEN,
     MONGO_CONNECTION_STRING,
     PORT,
-    ODDS
+    ODDS,
+    GRPC
 }

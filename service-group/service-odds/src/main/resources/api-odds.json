@@ -1,0 +1,2061 @@
+[
+  {
+    "id": "ec2f09c7d5c1507f2769511fc2b4c33b",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-30T00:10:00Z",
+    "home_team": "Charlotte Hornets",
+    "away_team": "Oklahoma City Thunder",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -2.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betmgm",
+        "title": "BetMGM",
+        "last_update": "2022-12-29T23:10:29Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:29Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -2.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -2.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "barstool",
+        "title": "Barstool Sportsbook",
+        "last_update": "2022-12-29T23:10:05Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:05Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -1.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 1.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betrivers",
+        "title": "BetRivers",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -1.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 1.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -2.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foxbet",
+        "title": "FOX Bet",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -1.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 1.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pointsbetus",
+        "title": "PointsBet (US)",
+        "last_update": "2022-12-29T23:09:31Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:31Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -2.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.9,
+                "point": -2.5
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.9,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "wynnbet",
+        "title": "WynnBET",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Charlotte Hornets",
+                "price": 1.91,
+                "point": -2.0
+              },
+              {
+                "name": "Oklahoma City Thunder",
+                "price": 1.91,
+                "point": 2.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2508ad749f85b267148d6522eedbfcf8",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-30T00:10:00Z",
+    "home_team": "Indiana Pacers",
+    "away_team": "Cleveland Cavaliers",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.95,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.87,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.95,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.87,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betmgm",
+        "title": "BetMGM",
+        "last_update": "2022-12-29T23:10:29Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:29Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.91,
+                "point": -4.5
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.91,
+                "point": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pointsbetus",
+        "title": "PointsBet (US)",
+        "last_update": "2022-12-29T23:09:31Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:31Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.91,
+                "point": -4.5
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.91,
+                "point": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betrivers",
+        "title": "BetRivers",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.88,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.93,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "barstool",
+        "title": "Barstool Sportsbook",
+        "last_update": "2022-12-29T23:10:05Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:05Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.88,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.93,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foxbet",
+        "title": "FOX Bet",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "wynnbet",
+        "title": "WynnBET",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Cleveland Cavaliers",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Indiana Pacers",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cb9d418cdadc64d51c2d1bda1e30aa69",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-30T00:40:00Z",
+    "home_team": "Boston Celtics",
+    "away_team": "Los Angeles Clippers",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.91,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.91,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.91,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.91,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.9,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.9,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betmgm",
+        "title": "BetMGM",
+        "last_update": "2022-12-29T23:10:29Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:29Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.91,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.91,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pointsbetus",
+        "title": "PointsBet (US)",
+        "last_update": "2022-12-29T23:09:31Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:31Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.91,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.91,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "wynnbet",
+        "title": "WynnBET",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.91,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.91,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.93,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.89,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betrivers",
+        "title": "BetRivers",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.89,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.92,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "barstool",
+        "title": "Barstool Sportsbook",
+        "last_update": "2022-12-29T23:10:05Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:05Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.89,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.92,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foxbet",
+        "title": "FOX Bet",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Boston Celtics",
+                "price": 1.91,
+                "point": -6.5
+              },
+              {
+                "name": "Los Angeles Clippers",
+                "price": 1.91,
+                "point": 6.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "df7b7b0c87d0a99cccf5d8ec0ac14f91",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-30T00:40:00Z",
+    "home_team": "Toronto Raptors",
+    "away_team": "Memphis Grizzlies",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betmgm",
+        "title": "BetMGM",
+        "last_update": "2022-12-29T23:10:29Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:29Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.95,
+                "point": -4.5
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.87,
+                "point": 4.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.88,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.94,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "barstool",
+        "title": "Barstool Sportsbook",
+        "last_update": "2022-12-29T23:10:05Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:05Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.92,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.89,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betrivers",
+        "title": "BetRivers",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.92,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.89,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foxbet",
+        "title": "FOX Bet",
+        "last_update": "2022-12-29T22:59:19Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T22:59:19Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.85,
+                "point": -3.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.95,
+                "point": 3.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.88,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.93,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pointsbetus",
+        "title": "PointsBet (US)",
+        "last_update": "2022-12-29T23:09:31Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:31Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "wynnbet",
+        "title": "WynnBET",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Memphis Grizzlies",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c9fe598f1b3d508a4daa59f4d25829da",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-30T01:10:00Z",
+    "home_team": "San Antonio Spurs",
+    "away_team": "New York Knicks",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.87,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.95,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betmgm",
+        "title": "BetMGM",
+        "last_update": "2022-12-29T23:10:29Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:29Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.95,
+                "point": -5.5
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.87,
+                "point": 5.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.88,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.94,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "barstool",
+        "title": "Barstool Sportsbook",
+        "last_update": "2022-12-29T23:10:05Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:05Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.89,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.92,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betrivers",
+        "title": "BetRivers",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.89,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.92,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foxbet",
+        "title": "FOX Bet",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.87,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.95,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "wynnbet",
+        "title": "WynnBET",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pointsbetus",
+        "title": "PointsBet (US)",
+        "last_update": "2022-12-29T23:09:31Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:31Z",
+            "outcomes": [
+              {
+                "name": "New York Knicks",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "San Antonio Spurs",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "78b4b5ffa6657f346982a5bba8e3938b",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-30T01:40:00Z",
+    "home_team": "Dallas Mavericks",
+    "away_team": "Houston Rockets",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.91,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.91,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.91,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.91,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.9,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.9,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betmgm",
+        "title": "BetMGM",
+        "last_update": "2022-12-29T23:10:29Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:29Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.87,
+                "point": -9.5
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.95,
+                "point": 9.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.94,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.88,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pointsbetus",
+        "title": "PointsBet (US)",
+        "last_update": "2022-12-29T23:09:31Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:31Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.91,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.91,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "wynnbet",
+        "title": "WynnBET",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.91,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.91,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "barstool",
+        "title": "Barstool Sportsbook",
+        "last_update": "2022-12-29T23:10:05Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:05Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.91,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.91,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betrivers",
+        "title": "BetRivers",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.91,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.91,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foxbet",
+        "title": "FOX Bet",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Dallas Mavericks",
+                "price": 1.85,
+                "point": -10.0
+              },
+              {
+                "name": "Houston Rockets",
+                "price": 1.95,
+                "point": 10.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3969d46dd8b5513793b70a4954b322d3",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T00:10:00Z",
+    "home_team": "Orlando Magic",
+    "away_team": "Washington Wizards",
+    "bookmakers": [
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Orlando Magic",
+                "price": 1.89,
+                "point": -1.5
+              },
+              {
+                "name": "Washington Wizards",
+                "price": 1.93,
+                "point": 1.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "296570c46d078d58cc5f20c2de31a21c",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T00:40:00Z",
+    "home_team": "Atlanta Hawks",
+    "away_team": "Los Angeles Lakers",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Atlanta Hawks",
+                "price": 1.91,
+                "point": -7.0
+              },
+              {
+                "name": "Los Angeles Lakers",
+                "price": 1.91,
+                "point": 7.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Atlanta Hawks",
+                "price": 1.91,
+                "point": -7.0
+              },
+              {
+                "name": "Los Angeles Lakers",
+                "price": 1.91,
+                "point": 7.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "00bb8675f9ade4fd3918a142256526c8",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T00:40:00Z",
+    "home_team": "Toronto Raptors",
+    "away_team": "Phoenix Suns",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Phoenix Suns",
+                "price": 1.91,
+                "point": 2.5
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.91,
+                "point": -2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Phoenix Suns",
+                "price": 1.91,
+                "point": 2.5
+              },
+              {
+                "name": "Toronto Raptors",
+                "price": 1.91,
+                "point": -2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "f49e8594ed060ac9328d41683075148f",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T01:10:00Z",
+    "home_team": "Chicago Bulls",
+    "away_team": "Detroit Pistons",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Chicago Bulls",
+                "price": 1.91,
+                "point": -7.5
+              },
+              {
+                "name": "Detroit Pistons",
+                "price": 1.91,
+                "point": 7.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Chicago Bulls",
+                "price": 1.9,
+                "point": -7.5
+              },
+              {
+                "name": "Detroit Pistons",
+                "price": 1.9,
+                "point": 7.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Chicago Bulls",
+                "price": 1.91,
+                "point": -7.5
+              },
+              {
+                "name": "Detroit Pistons",
+                "price": 1.91,
+                "point": 7.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Chicago Bulls",
+                "price": 1.91,
+                "point": -7.5
+              },
+              {
+                "name": "Detroit Pistons",
+                "price": 1.91,
+                "point": 7.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "405a22718e0793d3b6221099a7b073e1",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T01:10:00Z",
+    "home_team": "Milwaukee Bucks",
+    "away_team": "Minnesota Timberwolves",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Milwaukee Bucks",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "Minnesota Timberwolves",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Milwaukee Bucks",
+                "price": 1.91,
+                "point": -5.0
+              },
+              {
+                "name": "Minnesota Timberwolves",
+                "price": 1.91,
+                "point": 5.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9ac3b96783f582248b1aee93ba9286b5",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T01:40:00Z",
+    "home_team": "New Orleans Pelicans",
+    "away_team": "Philadelphia 76ers",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "New Orleans Pelicans",
+                "price": 1.91,
+                "point": -2.0
+              },
+              {
+                "name": "Philadelphia 76ers",
+                "price": 1.91,
+                "point": 2.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "New Orleans Pelicans",
+                "price": 1.9,
+                "point": -2.0
+              },
+              {
+                "name": "Philadelphia 76ers",
+                "price": 1.9,
+                "point": 2.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "New Orleans Pelicans",
+                "price": 1.91,
+                "point": -2.0
+              },
+              {
+                "name": "Philadelphia 76ers",
+                "price": 1.91,
+                "point": 2.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "New Orleans Pelicans",
+                "price": 1.91,
+                "point": -2.0
+              },
+              {
+                "name": "Philadelphia 76ers",
+                "price": 1.91,
+                "point": 2.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7901e4decd56a6b4edb51d283d4d570e",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T02:10:00Z",
+    "home_team": "Denver Nuggets",
+    "away_team": "Miami Heat",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Denver Nuggets",
+                "price": 1.91,
+                "point": -3.5
+              },
+              {
+                "name": "Miami Heat",
+                "price": 1.91,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Denver Nuggets",
+                "price": 1.91,
+                "point": -4.0
+              },
+              {
+                "name": "Miami Heat",
+                "price": 1.91,
+                "point": 4.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7c39478071003aef78b35211dba97294",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T03:10:00Z",
+    "home_team": "Golden State Warriors",
+    "away_team": "Portland Trail Blazers",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Golden State Warriors",
+                "price": 1.91,
+                "point": 3.0
+              },
+              {
+                "name": "Portland Trail Blazers",
+                "price": 1.91,
+                "point": -3.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Golden State Warriors",
+                "price": 1.89,
+                "point": 2.5
+              },
+              {
+                "name": "Portland Trail Blazers",
+                "price": 1.93,
+                "point": -2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "02c3f560cb6128f7977cd85c8b9a34a7",
+    "sport_key": "basketball_nba",
+    "sport_title": "NBA",
+    "commence_time": "2022-12-31T03:10:00Z",
+    "home_team": "Sacramento Kings",
+    "away_team": "Utah Jazz",
+    "bookmakers": [
+      {
+        "key": "draftkings",
+        "title": "DraftKings",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Sacramento Kings",
+                "price": 1.91,
+                "point": -3.0
+              },
+              {
+                "name": "Utah Jazz",
+                "price": 1.91,
+                "point": 3.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill_us",
+        "title": "William Hill (US)",
+        "last_update": "2022-12-29T23:09:55Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:55Z",
+            "outcomes": [
+              {
+                "name": "Sacramento Kings",
+                "price": 1.91,
+                "point": -3.0
+              },
+              {
+                "name": "Utah Jazz",
+                "price": 1.91,
+                "point": 3.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "betonlineag",
+        "title": "BetOnline.ag",
+        "last_update": "2022-12-29T23:10:16Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:10:16Z",
+            "outcomes": [
+              {
+                "name": "Sacramento Kings",
+                "price": 1.9,
+                "point": -3.0
+              },
+              {
+                "name": "Utah Jazz",
+                "price": 1.9,
+                "point": 3.0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "fanduel",
+        "title": "FanDuel",
+        "last_update": "2022-12-29T23:09:54Z",
+        "markets": [
+          {
+            "key": "spreads",
+            "last_update": "2022-12-29T23:09:54Z",
+            "outcomes": [
+              {
+                "name": "Sacramento Kings",
+                "price": 1.91,
+                "point": -3.0
+              },
+              {
+                "name": "Utah Jazz",
+                "price": 1.91,
+                "point": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
