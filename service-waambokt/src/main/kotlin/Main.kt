@@ -6,11 +6,18 @@ import dev.kord.core.kordLogger
 import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
+import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
+import org.waambokt.common.WaamboktGrpcServer
 import org.waambokt.common.constants.Env
 import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
+import org.waambokt.service.net.NetService
+import org.waambokt.service.odds.OddsService
+import org.waambokt.service.spec.net.NetServiceGrpcKt
+import org.waambokt.service.spec.odds.OddsServiceGrpcKt
+import org.waambokt.service.waambokt.commands.Net
 import org.waambokt.service.waambokt.commands.Ping
 import org.waambokt.service.waambokt.commands.Schedule
 import org.waambokt.service.waambokt.commands.Sum
@@ -27,7 +34,10 @@ fun main(): Unit = runBlocking {
         Env.TESTGUILD,
         Env.ISPROD,
         Env.CLEARCOMMANDS,
-        Env.PORT
+        Env.PORT,
+        Env.ODDS,
+        Env.MONGO_CONNECTION_STRING,
+        Env.GRPC
     )
 
     logger.info("discord client login...")
@@ -44,11 +54,14 @@ fun main(): Unit = runBlocking {
     // and being able to DM the bot is not worth the hassle during development
     kord.createAllApplicationCommands(envars, commands)
 
+    // Initialize all grpc servers
+    val services = Services(envars)
+
     kord.on<GuildChatInputCommandInteractionCreateEvent> {
         logger.info {
             "GuildChatInputCommandInteractionCreateEvent ${this.interaction.invokedCommandName}"
         }
-        this.digest()
+        this.digest(services)
     }
 
     kord.login {
@@ -58,11 +71,21 @@ fun main(): Unit = runBlocking {
     }
 }
 
-suspend fun GuildChatInputCommandInteractionCreateEvent.digest() {
+suspend fun GuildChatInputCommandInteractionCreateEvent.digest(services: Services) {
     return when (CommandEnum.values().find { it.cmdName == this.interaction.invokedCommandName }) {
         CommandEnum.PING -> Ping(this).respond()
         CommandEnum.SUM -> Sum(this).respond()
         CommandEnum.SCHEDULE -> Schedule(this).respond()
+        CommandEnum.NET -> Net(services.netService, this).respond()
         else -> kordLogger.info { "Command ${this.interaction.invokedCommandName} not found. Skipping..." }
     }
+}
+
+data class Services(
+    private val env: Environment
+) {
+    private val channel =
+        ManagedChannelBuilder.forAddress(env["GRPC"], env["PORT"].toInt()).usePlaintext().build()
+
+    val netService = NetServiceGrpcKt.NetServiceCoroutineStub(channel)
 }

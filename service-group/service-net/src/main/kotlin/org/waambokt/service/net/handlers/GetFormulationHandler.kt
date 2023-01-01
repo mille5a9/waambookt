@@ -1,5 +1,6 @@
 package org.waambokt.service.net.handlers
 
+import com.google.protobuf.Timestamp
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.AsyncFetcher
 import it.skrape.fetcher.response
@@ -19,6 +20,7 @@ import org.waambokt.service.spec.net.FormulaResponse
 import org.waambokt.service.spec.net.FormulaResult
 import org.waambokt.service.spec.net.FormulaResult.FormulaChoiceEnum
 import org.waambokt.service.spec.odds.Bet
+import org.waambokt.service.spec.odds.NbaOdds
 import org.waambokt.service.spec.odds.NbaOddsRequest
 import org.waambokt.service.spec.odds.NbaOddsResponse
 import org.waambokt.service.spec.odds.OddsServiceGrpcKt
@@ -45,20 +47,12 @@ class GetFormulationHandler(
         val nets = refreshNet()
         return FormulaResponse.newBuilder().addAllFormulaResults(
             spreads.gamesList.mapNotNull {
-                if (
-                    LocalDate.ofInstant(Instant.ofEpochSecond(it.time.seconds), ZoneId.of("UTC")).toEpochDay() !=
-                    LocalDate.now().toEpochDay()
-                ) return@mapNotNull null
-                val homeNet = nets.find { x -> x.teamName == it.homeTeamName }?.netValue ?: 0.0
-                val awayNet = nets.find { x -> x.teamName == it.awayTeamName }?.netValue ?: 0.0
-                val implSpread = awayNet - homeNet - 3
-                val choice = if (implSpread < (it.homeOrOver.bestLine + Nba.min)) FormulaChoiceEnum.HOME_SPREAD
-                else if (implSpread < (it.awayOrUnder.bestLine + Nba.min)) FormulaChoiceEnum.AWAY_SPREAD
-                else FormulaChoiceEnum.NO_CONTEST
+                if (it.time.getDays() != LocalDate.now().toEpochDay()) return@mapNotNull null
+                val choice = it.makeChoice(nets)
                 val side = when (choice) {
                     FormulaChoiceEnum.HOME_SPREAD -> Pair(it.homeTeamName, it.homeOrOver)
                     FormulaChoiceEnum.AWAY_SPREAD -> Pair(it.awayTeamName, it.awayOrUnder)
-                    else -> Pair("", Bet.getDefaultInstance())
+                    else -> Pair("${it.awayTeamName} @ ${it.homeTeamName}", Bet.getDefaultInstance())
                 }
                 FormulaResult.newBuilder()
                     .setChoice(choice)
@@ -72,6 +66,22 @@ class GetFormulationHandler(
             }
         ).build()
     }
+
+    private fun Timestamp.getDays() =
+        LocalDate.ofInstant(Instant.ofEpochSecond(this.seconds), ZoneId.of("UTC")).toEpochDay()
+
+    private fun NbaOdds.makeChoice(nets: List<NbaNet>): FormulaChoiceEnum {
+        val homeNet = nets.findTeamNet(homeTeamName)
+        val awayNet = nets.findTeamNet(awayTeamName)
+        val homeSpreadDiff = (homeOrOver.bestLine + Nba.min) - (awayNet - homeNet - 3)
+        val awaySpreadDiff = (awayOrUnder.bestLine + Nba.min) - (3 + homeNet - awayNet)
+        return if (homeSpreadDiff > 0 && awaySpreadDiff > 0) FormulaChoiceEnum.NO_CONTEST
+        else if (homeSpreadDiff > awaySpreadDiff) FormulaChoiceEnum.HOME_SPREAD
+        else FormulaChoiceEnum.AWAY_SPREAD
+    }
+
+    private fun List<NbaNet>.findTeamNet(name: String) =
+        this.find { x -> x.teamName == name }?.netValue ?: 0.0
 
     private suspend fun getBestSpreads(): NbaOddsResponse {
         return oddsService.getNbaOdds(
