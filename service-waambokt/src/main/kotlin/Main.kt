@@ -9,14 +9,10 @@ import dev.kord.gateway.PrivilegedIntent
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
-import org.waambokt.common.WaamboktGrpcServer
 import org.waambokt.common.constants.Env
 import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
-import org.waambokt.service.net.NetService
-import org.waambokt.service.odds.OddsService
 import org.waambokt.service.spec.net.NetServiceGrpcKt
-import org.waambokt.service.spec.odds.OddsServiceGrpcKt
 import org.waambokt.service.waambokt.commands.Net
 import org.waambokt.service.waambokt.commands.Ping
 import org.waambokt.service.waambokt.commands.Schedule
