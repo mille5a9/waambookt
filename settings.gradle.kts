@@ -20,3 +20,5 @@ include("service-group:service-odds")
 findProject(":service-group:service-odds")?.name = "service-odds"
 include("service-spec:service-spec-odds")
 findProject(":service-spec:service-spec-odds")?.name = "service-spec-odds"
+include("service-group:service-cron")
+findProject(":service-group:service-cron")?.name = "service-cron"
