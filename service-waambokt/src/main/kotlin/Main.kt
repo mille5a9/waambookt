@@ -9,10 +9,17 @@ import dev.kord.gateway.PrivilegedIntent
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
+import org.waambokt.common.WaamboktGrpcServer
 import org.waambokt.common.constants.Env
 import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
+import org.waambokt.service.cron.CronService
+import org.waambokt.service.net.NetService
+import org.waambokt.service.odds.OddsService
+import org.waambokt.service.score.ScoreService
 import org.waambokt.service.spec.net.NetServiceGrpcKt
+import org.waambokt.service.spec.odds.OddsServiceGrpcKt
+import org.waambokt.service.spec.score.ScoreServiceGrpcKt
 import org.waambokt.service.waambokt.commands.Net
 import org.waambokt.service.waambokt.commands.Ping
 import org.waambokt.service.waambokt.commands.Schedule
@@ -51,6 +58,7 @@ fun main(): Unit = runBlocking {
     kord.createAllApplicationCommands(envars, commands)
 
     // Initialize all grpc servers
+    launchServices(envars)
     val services = Services(envars)
 
     kord.on<GuildChatInputCommandInteractionCreateEvent> {
@@ -77,11 +85,26 @@ suspend fun GuildChatInputCommandInteractionCreateEvent.digest(services: Service
     }
 }
 
+fun launchServices(env: Environment) {
+    val cronService = CronService(env)
+    cronService.start(60)
+    val grpcServices = WaamboktGrpcServer(
+        env["PORT"].toInt(),
+        NetService(env),
+        OddsService(env),
+        ScoreService(env)
+    )
+    grpcServices.start()
+}
+
 data class Services(
     private val env: Environment
 ) {
+    val logger = KotlinLogging.logger {}
     private val channel =
         ManagedChannelBuilder.forAddress(env["GRPC"], env["PORT"].toInt()).usePlaintext().build()
 
     val netService = NetServiceGrpcKt.NetServiceCoroutineStub(channel)
+    val oddsService = OddsServiceGrpcKt.OddsServiceCoroutineStub(channel)
+    val scoreService = ScoreServiceGrpcKt.ScoreServiceCoroutineStub(channel)
 }

@@ -40,3 +40,9 @@ tasks.getByName<Test>("test") {
 application {
     mainClass.set("org.waambokt.service.odds.MainKt")
 }
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
+}

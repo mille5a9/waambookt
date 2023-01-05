@@ -1,6 +1,7 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.21"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("io.ktor.plugin") version "2.1.2"
     id("com.google.protobuf") version "0.9.1"
     id("application")
 }
@@ -38,4 +39,10 @@ tasks.getByName<Test>("test") {
 
 application {
     mainClass.set("org.waambokt.service.net.MainKt")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
 }
