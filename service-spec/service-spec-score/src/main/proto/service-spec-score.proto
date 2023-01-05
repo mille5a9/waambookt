@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.waambokt.service.spec.score";
+
+import "google/protobuf/timestamp.proto";
+
+package org.waambokt.service.spec.score;
+
+service ScoreService {
+  rpc StoreDayGames (StoreDayGamesRequest) returns (StoreDayGamesResponse) {}
+}
+
+message StoreDayGamesRequest {
+  google.protobuf.Timestamp day = 1;
+}
+
+message GameResult {
+  message Team {
+    enum TeamEnum {
+      TEAM_ENUM_UNSPECIFIED = 0;
+      Atlanta_Hawks = 1;
+      Boston_Celtics = 2;
+      Brooklyn_Nets = 3;
+      Charlotte_Hornets = 4;
+      Chicago_Bulls = 5;
+      Cleveland_Cavaliers = 6;
+      Dallas_Mavericks = 7;
+      Denver_Nuggets = 8;
+      Detroit_Pistons = 9;
+      Golden_State_Warriors = 10;
+      Houston_Rockets = 11;
+      Indiana_Pacers = 12;
+      Los_Angeles_Clippers = 13;
+      Los_Angeles_Lakers = 14;
+      Memphis_Grizzlies = 15;
+      Miami_Heat = 16;
+      Milwaukee_Bucks = 17;
+      Minnesota_Timberwolves = 18;
+      New_Orleans_Pelicans = 19;
+      New_York_Knicks = 20;
+      Oklahoma_City_Thunder = 21;
+      Orlando_Magic = 22;
+      Philadelphia_76ers = 23;
+      Phoenix_Suns = 24;
+      Portland_Trail_Blazers = 25;
+      Sacramento_Kings = 26;
+      San_Antonio_Spurs = 27;
+      Toronto_Raptors = 28;
+      Utah_Jazz = 29;
+      Washington_Wizards = 30;
+    }
+
+    TeamEnum team_id = 1;
+    int32 fg = 2;
+    int32 fg3p = 3;
+    int32 fga = 4;
+    int32 turnovers = 5;
+    int32 ft = 6;
+    int32 fta = 7;
+    int32 oreb = 8;
+    int32 dreb = 9;
+    double adj_net = 10;
+    int32 score = 11;
+  }
+
+  int32 game_id = 1; // espn's game id probably
+  google.protobuf.Timestamp time = 2;
+  Team home = 3;
+  Team away = 4;
+}
+
+message StoreDayGamesResponse {
+  repeated GameResult game_result = 1;
+}

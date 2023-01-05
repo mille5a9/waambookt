@@ -6,6 +6,7 @@ import mu.KotlinLogging
 import org.waambokt.service.spec.net.FormulaRequest
 import org.waambokt.service.spec.net.FormulaResult
 import org.waambokt.service.spec.net.NetServiceGrpcKt
+import kotlin.math.roundToInt
 
 class Net
 private constructor(
@@ -27,11 +28,12 @@ private constructor(
         return bestBets.formulaResultsList
             .filter { !hideNoContests || it.choice != FormulaResult.FormulaChoiceEnum.NO_CONTEST }
             .joinToString("\n", "```", "```") {
-                "${it.name.split(' ').last()} ${it.line} on ${it.book} at ${it.odds.toAmericanOdds()}"
+                if (it.book.isBlank()) "Don't bet on the ${it.name} game"
+                else "${it.name.split(' ').last()} ${it.line} on ${it.book} at ${it.odds.toAmericanOdds()}"
             }
     }
 
-    private fun Double.toAmericanOdds() = if (this >= 2) (this - 1) * 100 else (-100) / (this - 1)
+    private fun Double.toAmericanOdds() = (if (this >= 2) (this - 1) * 100 else (-100) / (this - 1)).roundToInt()
 
     companion object {
         private val logger = KotlinLogging.logger {}

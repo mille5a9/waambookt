@@ -18,7 +18,8 @@ fun main() {
         Env.MONGO_CONNECTION_STRING,
         Env.GRPC
     )
-    val scheduler = CronService()
-    scheduler.start(5)
+    val scheduler = CronService(envars)
+    logger.info { "Starting CronService job..." }
+    scheduler.start(60)
     runBlocking { scheduler.join() }
 }
