@@ -6,8 +6,10 @@ import org.litote.kmongo.reactivestreams.KMongo.createClient
 import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
 import org.waambokt.service.net.handlers.GetFormulationHandler
+import org.waambokt.service.net.handlers.GetSingleNetHandler
 import org.waambokt.service.spec.net.FormulaRequest
 import org.waambokt.service.spec.net.NetServiceGrpcKt
+import org.waambokt.service.spec.net.SingleNetRequest
 import org.waambokt.service.spec.odds.OddsServiceGrpcKt
 
 class NetService constructor(
@@ -20,5 +22,9 @@ class NetService constructor(
         .getDatabase(if (env.bool("ISPROD")) "prodkt" else "testkt")
         .coroutine
     private val getFormulationHandler = GetFormulationHandler(dbClient, oddsService)
+    private val getSingleNetHandler = GetSingleNetHandler(dbClient)
+
     override suspend fun getFormulation(request: FormulaRequest) = getFormulationHandler.handle(request)
+
+    override suspend fun getSingleNet(request: SingleNetRequest) = getSingleNetHandler.handle(request)
 }

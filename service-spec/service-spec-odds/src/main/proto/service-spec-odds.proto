@@ -20,7 +20,7 @@ message Bet {
 }
 
 message NbaOdds {
-    string game_id = 1;
+    int32 game_id = 1;
     string home_team_name = 2;
     string away_team_name = 3;
     Bet home_or_over = 4;
