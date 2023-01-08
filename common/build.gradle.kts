@@ -10,16 +10,15 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.kord:kord-core:0.8.0-M17")
-    implementation("io.grpc:grpc-netty:1.51.0")
-    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
-    implementation("io.grpc:grpc-protobuf:1.51.1")
-    implementation("io.grpc:grpc-core:1.51.1")
-    implementation("io.netty:netty-codec:4.1.86.Final")
-    implementation("org.json:json:20220924")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.litote.kmongo:kmongo-coroutine:4.8.0")
-    implementation("org.litote.kmongo:kmongo-id:4.8.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+
+    api("org.litote.kmongo:kmongo-id:4.8.0")
+    api("com.google.protobuf:protobuf-java:3.21.12")
+    api("dev.kord:kord-common:0.8.0-M17")
+    api("io.grpc:grpc-api:1.51.1")
+
+    runtimeOnly("io.grpc:grpc-netty:1.51.0")
+    runtimeOnly("io.grpc:grpc-core:1.51.1")
+
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }

@@ -13,22 +13,29 @@ repositories {
 }
 
 dependencies {
+    implementation("com.google.protobuf:protobuf-java:3.21.7")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
-    implementation("io.grpc:grpc-netty:1.51.0")
-    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
-    implementation("io.grpc:grpc-protobuf:1.51.1")
-    implementation("io.grpc:grpc-core:1.51.1")
-    implementation("io.netty:netty-codec:4.1.86.Final")
+    implementation("io.grpc:grpc-api:1.51.1")
     implementation("it.skrape:skrapeit:1.3.0-alpha.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("it.skrape:skrapeit-async-fetcher:1.3.0-alpha.1")
+    implementation("it.skrape:skrapeit-base-fetcher:1.3.0-alpha.1")
+    implementation("it.skrape:skrapeit-html-parser:1.3.0-alpha.1")
     implementation("org.litote.kmongo:kmongo-coroutine:4.8.0")
     implementation("org.litote.kmongo:kmongo-id:4.8.0")
-    implementation("org.slf4j:slf4j-simple:2.0.5")
+    implementation("org.litote.kmongo:kmongo-async-shared:4.8.0")
+    implementation("org.litote.kmongo:kmongo-coroutine-core:4.8.0")
+    implementation("org.mongodb:bson:4.8.0")
+    implementation("org.mongodb:mongodb-driver-core:4.8.0")
+    implementation("org.mongodb:mongodb-driver-reactivestreams:4.8.0")
     implementation(project(":common"))
     implementation(project(":service-group:service-odds"))
     implementation(project(":service-spec:service-spec-net"))
     implementation(project(":service-spec:service-spec-odds"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+
+    runtimeOnly("io.grpc:grpc-netty:1.51.0")
+    runtimeOnly("io.grpc:grpc-core:1.51.1")
+    runtimeOnly("org.slf4j:slf4j-simple:2.0.5")
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 

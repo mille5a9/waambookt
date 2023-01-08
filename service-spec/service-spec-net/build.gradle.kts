@@ -3,7 +3,7 @@ import com.google.protobuf.gradle.id
 plugins {
     id("idea")
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.7.20"
+    id("org.jetbrains.kotlin.jvm")
     id("com.google.protobuf") version ("0.9.1")
 }
 
@@ -21,15 +21,15 @@ dependencies {
     repositories {
         mavenCentral()
     }
+
     implementation("io.grpc:grpc-protobuf:1.51.1")
-    implementation("io.grpc:grpc-stub:1.51.1")
-    implementation("io.grpc:grpc-kotlin-stub:1.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("com.google.protobuf:protobuf-java:3.21.11")
-    implementation("com.google.protobuf:protobuf-java-util:3.21.11")
-    implementation("com.google.protobuf:protobuf-kotlin:3.21.12")
-    implementation("io.grpc:protoc-gen-grpc-kotlin:1.2.1")
+
+    api("com.google.guava:guava:31.1-android")
+    api("com.google.protobuf:protobuf-java:3.21.11")
+    api("io.grpc:grpc-api:1.51.1")
+    api("io.grpc:grpc-kotlin-stub:1.2.1")
+    api("io.grpc:grpc-stub:1.51.1")
 }
 
 sourceSets {
