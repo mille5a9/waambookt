@@ -3,14 +3,15 @@ version: '3.4'
 services:
   waambokt:
     image: localhost:5000/waambokt-dev
+    restart: always
     container_name: waambokt
     env_file:
       - .env
     networks:
-      - mongo_default
+      - mongo_mongo-network
     ports:
       - "8080:8080"
 
 networks:
-  mongo_default: 
+  mongo_mongo-network: 
     external: true

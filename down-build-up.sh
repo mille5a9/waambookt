@@ -1,3 +1,3 @@
 #!/bin/bash
 docker-compose down
-./gradlew jibDockerBuild && docker-compose up -d
+./gradlew service-waambokt:jibDockerBuild && docker-compose up -d
