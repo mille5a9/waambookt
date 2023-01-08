@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.21"
     id("io.ktor.plugin") version "2.1.2"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("com.google.cloud.tools.jib") version "3.3.1"
     application
 }
 
@@ -58,8 +59,10 @@ application {
     mainClass.set("org.waambokt.service.waambokt.MainKt")
 }
 
-ktor {
-    fatJar {
-        archiveFileName.set("fat.jar")
-    }
+if (System.getenv("ISPROD").toBoolean()) {
+    jib.to.image = "localhost:5000/waambokt-prod"
 }
+else {
+    jib.to.image = "localhost:5000/waambokt-dev"
+}
+

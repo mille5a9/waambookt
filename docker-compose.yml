@@ -1,7 +1,16 @@
+version: '3.4'
+
 services:
   waambokt:
-    build: .
-    ports:
-      - "8080:8080"
+    image: localhost:5000/waambokt-dev
+    container_name: waambokt
     env_file:
       - .env
+    networks:
+      - mongo_default
+    ports:
+      - "8080:8080"
+
+networks:
+  mongo_default: 
+    external: true

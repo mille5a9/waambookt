@@ -8,7 +8,6 @@
  */
 
 rootProject.name = "waambokt"
-include("app")
 include("service-spec:service-spec-net")
 findProject(":service-spec:service-spec-net")?.name = "service-spec-net"
 include("common")

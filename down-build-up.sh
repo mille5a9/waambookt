@@ -1,3 +1,3 @@
 #!/bin/bash
 docker-compose down
-docker-compose up $1 -d
+./gradlew jibDockerBuild && docker-compose up -d

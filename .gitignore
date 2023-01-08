@@ -4,11 +4,7 @@
 # Ignore Gradle build output directory
 build
 
-# Ignore configuration file containing secrets
-/app/src/main/resources/.env.properties
-
 # Ignore the bin folder created by some IDEs
-app/bin
+bin
 .env
-/.idea/
-/.idea
+.idea
