@@ -26,6 +26,8 @@ dependencies {
     implementation("org.litote.kmongo:kmongo-async-shared:4.8.0")
     implementation("org.litote.kmongo:kmongo-coroutine-core:4.8.0")
     implementation("org.litote.kmongo:kmongo-shared:4.8.0")
+    implementation("org.litote.kmongo:kmongo-property:4.8.0")
+    implementation("org.mongodb:bson:4.8.0")
     implementation("org.mongodb:mongodb-driver-reactivestreams:4.8.0")
 
     implementation(project(":common"))
