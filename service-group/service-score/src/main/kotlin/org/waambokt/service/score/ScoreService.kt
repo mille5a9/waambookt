@@ -5,8 +5,11 @@ import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 import org.waambokt.common.constants.Environment
 import org.waambokt.common.extensions.EnvironmentExtension.bool
+import org.waambokt.service.score.handlers.BuildGameFeaturesHandler
 import org.waambokt.service.score.handlers.StoreDayGamesHandler
 import org.waambokt.service.spec.net.NetServiceGrpcKt
+import org.waambokt.service.spec.score.BuildGameFeaturesRequest
+import org.waambokt.service.spec.score.BuildGameFeaturesResponse
 import org.waambokt.service.spec.score.ScoreServiceGrpcKt
 import org.waambokt.service.spec.score.StoreDayGamesRequest
 import org.waambokt.service.spec.score.StoreDayGamesResponse
@@ -21,9 +24,16 @@ class ScoreService(
     private val netService = NetServiceGrpcKt.NetServiceCoroutineStub(
         ManagedChannelBuilder.forAddress(env["GRPC"], env["PORT"].toInt()).usePlaintext().build()
     )
+
     private val storeDayGamesHandler = StoreDayGamesHandler(dbClient, netService)
+
+    private val buildGameFeaturesHandler = BuildGameFeaturesHandler(dbClient)
 
     override suspend fun storeDayGames(request: StoreDayGamesRequest): StoreDayGamesResponse {
         return storeDayGamesHandler.handle(request)
+    }
+
+    override suspend fun buildGameFeatures(request: BuildGameFeaturesRequest): BuildGameFeaturesResponse {
+        return buildGameFeaturesHandler.handle(request)
     }
 }

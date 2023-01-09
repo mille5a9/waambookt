@@ -12,6 +12,11 @@ import org.waambokt.common.extensions.TimestampExtension.getDays
 import org.waambokt.common.extensions.TimestampExtension.getInstant
 import org.waambokt.common.models.NbaBox
 import org.waambokt.common.models.NbaBox.BoxTeam
+import org.waambokt.common.models.NbaFourFactors
+import org.waambokt.service.score.extensions.TeamExtension.freebies
+import org.waambokt.service.score.extensions.TeamExtension.rebounding
+import org.waambokt.service.score.extensions.TeamExtension.shooting
+import org.waambokt.service.score.extensions.TeamExtension.turnovers
 import org.waambokt.service.spec.net.NetServiceGrpcKt
 import org.waambokt.service.spec.net.SingleNetRequest
 import org.waambokt.service.spec.score.GameResult
@@ -45,13 +50,40 @@ class StoreDayGamesHandler(
             val requestStr = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=$gameId"
             logger.info { requestStr }
             val boxscore = JSONObject(HttpClient().get(requestStr).body<String>()).getJSONObject("boxscore")
+            val home = getTeam(boxscore.getJSONArray("teams").getJSONObject(1))
+            val away = getTeam(boxscore.getJSONArray("teams").getJSONObject(0))
+            saveFourFactors(gameId, home, away)
             GameResult.newBuilder()
                 .setGameId(gameId)
                 .setTime(Timestamp.newBuilder().setSeconds(days * 24 * 3600).build())
-                .setHome(getTeam(boxscore.getJSONArray("teams").getJSONObject(1)))
-                .setAway(getTeam(boxscore.getJSONArray("teams").getJSONObject(0)))
+                .setHome(home)
+                .setAway(away)
                 .build()
         }
+    }
+
+    private suspend fun saveFourFactors(gameId: Int, home: Team, away: Team) {
+        val fourFactorsCollection = db.getCollection<NbaFourFactors>()
+        fourFactorsCollection.save(
+            NbaFourFactors(
+                gameId,
+                home.teamIdValue,
+                (home.shooting() - away.shooting()) / 2 + 0.5,
+                (home.turnovers() - away.turnovers()) / 2 + 0.5,
+                home.rebounding(away) / 2 + 0.5,
+                (home.freebies() - away.freebies()) / 2 + 0.5
+            )
+        )
+        fourFactorsCollection.save(
+            NbaFourFactors(
+                gameId,
+                away.teamIdValue,
+                (away.shooting() - home.shooting()) / 2 + 0.5,
+                (away.turnovers() - home.turnovers()) / 2 + 0.5,
+                away.rebounding(home) / 2 + 0.5,
+                (away.freebies() - home.freebies()) / 2 + 0.5
+            )
+        )
     }
 
     private suspend fun getTeam(team: JSONObject): Team {
