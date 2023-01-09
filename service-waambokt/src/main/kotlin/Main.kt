@@ -87,7 +87,7 @@ suspend fun GuildChatInputCommandInteractionCreateEvent.digest(services: Service
 
 fun launchServices(env: Environment) {
     val cronService = CronService(env)
-    cronService.start(60)
+    cronService.start(300)
     val grpcServices = WaamboktGrpcServer(
         env["PORT"].toInt(),
         NetService(env),

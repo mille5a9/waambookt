@@ -9,6 +9,7 @@ package org.waambokt.service.spec.score;
 
 service ScoreService {
   rpc StoreDayGames (StoreDayGamesRequest) returns (StoreDayGamesResponse) {}
+  rpc BuildGameFeatures (BuildGameFeaturesRequest) returns (BuildGameFeaturesResponse) {}
 }
 
 message StoreDayGamesRequest {
@@ -72,4 +73,25 @@ message GameResult {
 
 message StoreDayGamesResponse {
   repeated GameResult game_result = 1;
+}
+
+message BuildGameFeaturesRequest {
+  int32 game_id = 1;
+}
+
+message BuildGameFeaturesResponse {
+  message TeamFeatures {
+    int32 team_id = 1;
+    double shooting = 2;
+    double turnovers = 3;
+    double rebounding = 4;
+    double freebies = 5;
+    double back_to_back = 6;
+    double best_spread = 7;
+    double result = 8;
+  }
+
+  int32 game_id = 1;
+  TeamFeatures home = 2;
+  TeamFeatures away = 3;
 }

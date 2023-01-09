@@ -20,6 +20,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:3.21.7")
     implementation("io.grpc:grpc-api:1.51.1")
     implementation(project(":common"))
+    implementation(project(":service-spec:service-spec-odds"))
     implementation(project(":service-spec:service-spec-score"))
 
     runtimeOnly("io.grpc:grpc-netty:1.51.0")
